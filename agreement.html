@@ -1523,7 +1523,7 @@
         <!-- Loading Overlay -->
         <div class="loading-overlay" id="loadingOverlay" style="display: none;">
             <div class="spinner"></div>
-            <p>Generating your agreement...</p>
+            <p>Generating and submitting your agreement...</p>
         </div>
     </div>
 
@@ -1933,7 +1933,10 @@
                     // Store the PDF URL
                     state.pdfUrl = url;
                     
-                    // Move to next step now that PDF is ready
+                    // Send PDF to backend API
+                    await sendPdfToBackend(pdfOutput);
+                    
+                    // Move to next step now that PDF is ready and sent
                     showStep(state.currentStep + 1);
                     
                     // Populate done fields
@@ -1950,6 +1953,48 @@
                     document.getElementById("loadingOverlay").style.display = "none";
                 }
             }, 500); // Small delay to ensure loading overlay is shown
+        }
+
+        // Send PDF to backend API
+        async function sendPdfToBackend(pdfBlob) {
+            try {
+                // Define the API URL
+                const apiUrl = 'https://agent-website-backend-re.vercel.app/api/pdf/email';
+                
+                // Create FormData object
+                const formData = new FormData();
+                formData.append('pdf', pdfBlob, 'Broker_Carrier_Agreement.pdf');
+                
+                // Add carrier information to the form data if needed
+                formData.append('carrierName', state.carrierInfo.carrierName);
+                formData.append('carrierEmail', state.agreementInfo.email);
+                
+                // Send the request
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                // Check if the request was successful
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`API Error: ${errorData.message || 'Unknown error'}`);
+                }
+                
+                const result = await response.json();
+                console.log('PDF sent successfully:', result);
+                
+                // Update the done page to show success message
+                const downloadSection = document.querySelector('.download-section .note');
+                if (downloadSection) {
+                    downloadSection.innerHTML = `A copy of the signed agreement has been sent to your email address (<span id="done-email-note">${state.agreementInfo.email}</span>) and submitted to our system. Please keep it for your records.`;
+                }
+                
+            } catch (error) {
+                console.error('Error sending PDF to backend:', error);
+                // Don't block the user flow, just log the error
+                // You could add a warning message on the done page if desired
+            }
         }
 
         // Download PDF
