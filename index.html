@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valhalla Logistic LLC</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -263,11 +264,26 @@
 
         .logo {
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
         }
 
         .logo img {
-            height: 50px;
+            height: 65px;
+            width: auto;
             transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .logo img {
+                height: 55px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                height: 45px;
+            }
         }
 
         nav {
@@ -2563,7 +2579,7 @@
                     <div class="footer-links">
                         <h4 class="footer-heading">Contact Us</h4>
                         <ul>
-                            <li><a href="#"><i class="fas fa-map-marker-alt"></i> 1255 FRANKLIN AVE SUITE 350 GARDEN CITY,NY 11530</a></li>
+                            <li><a href="#"><i class="fas fa-map-marker-alt"></i> 1255 FRANKLIN AVE SUITE 350 GARDEN CITY,NY 11530</a></li>
                             <li><a href="#"><i class="fas fa-phone"></i> +1 (555) 123-4567</a></li>
                             <li><a href="#"><i class="fas fa-envelope"></i> Alex@valhallalogisticsllc.com</a></li>
                             <li><a href="#"><i class="fas fa-clock"></i> Mon-Fri: 8:00AM - 6:00PM</a></li>
