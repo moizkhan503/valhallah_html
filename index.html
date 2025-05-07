@@ -314,24 +314,6 @@
             color: var(--accent);
         }
 
-        .nav-cta {
-            margin-left: 15px;
-        }
-
-        .nav-cta .btn {
-            padding: 10px 20px;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-extras {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
         .nav-contact {
             display: flex;
             align-items: center;
@@ -368,6 +350,18 @@
             color: var(--primary);
         }
 
+        .nav-cta {
+            margin-left: 15px;
+        }
+
+        .nav-cta .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .mobile-toggle {
             display: none;
             flex-direction: column;
@@ -399,16 +393,16 @@
             transform: translateY(-9px) rotate(-45deg);
         }
 
-        /* Hero Section with Video Background */
+        /* Hero Section with YouTube Video Background */
         .hero {
-            height: 110vh; /* Increased from 100vh to make it longer */
+            height: 100vh;
             position: relative;
             color: var(--white);
             display: flex;
             align-items: center;
             text-align: center;
-            padding-top: 100px;
-            background-color: transparent !important; /* Force transparency */
+            padding-top: 80px;
+            background-color: transparent !important;
             overflow: hidden;
         }
 
@@ -420,30 +414,30 @@
             height: 100%;
             overflow: hidden;
             z-index: -1;
-            background: none; /* Ensure no background here either */
+            background: none;
         }
 
-        /* Remove any overlay that might be causing the blue tint */
-        .hero:before,
-        .hero:after,
-        .hero-video-container:before,
-        .hero-video-container:after {
-            content: none !important;
-            display: none !important;
-        }
-
-        .hero-video {
+        /* YouTube Video Container */
+        .youtube-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+        }
+
+        .youtube-container iframe {
             position: absolute;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
             border: none;
+            object-fit: cover;
         }
 
-        .hero-video-container:after {
-            content: '';
+        .hero-overlay {
             position: absolute;
             top: 0;
             left: 0;
@@ -459,16 +453,15 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 0 20px;
-            transform: translateY(-50px); /* Move content upward by 50px */
         }
 
         .hero h1 {
             color: var(--white);
-            font-size: 3.2rem; /* Reduced from 4.5rem */
-            margin-bottom: 30px; /* Increased from 20px to create more space below the heading */
+            font-size: 3.2rem;
+            margin-bottom: 30px;
             animation: fadeInUp 1s ease;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Optional: adds shadow for better visibility against video */
-            white-space: nowrap; /* Ensures text stays on a single line */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            white-space: normal;
         }
 
         .hero p {
@@ -483,11 +476,15 @@
         .hero-buttons {
             animation: fadeInUp 1s ease 0.4s;
             animation-fill-mode: both;
-            margin-top: 200px; /* Increased from 100px to 200px to move buttons much further down */
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         .hero-buttons .btn {
-            margin: 0 10px;
+            margin: 10px;
             min-width: 180px;
         }
 
@@ -509,9 +506,9 @@
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
 
-        .hero-buttons {
-            animation: fadeInUp 1.2s ease 0.6s;
-            animation-fill-mode: both;
+        /* Mobile-only Send Agreement button in hero section */
+        .mobile-send-agreement {
+            display: none;
         }
 
         /* Tracking Section */
@@ -1325,9 +1322,9 @@
         /* Testimonials Section */
         .testimonials {
             background-color: var(--light);
-            padding: 100px 0;
             position: relative;
             overflow: hidden;
+            padding: 100px 0;
         }
 
         .testimonials:before {
@@ -1781,15 +1778,31 @@
             .section-title h2 {
                 font-size: 2.2rem;
             }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+                margin: 10px 0;
+            }
+            
+            /* Hide desktop Send Agreement button and show mobile version */
+            .nav-cta {
+                display: none;
+            }
+            
+            .mobile-send-agreement {
+                display: block;
+            }
         }
 
         @media (max-width: 768px) {
             .header {
                 padding: 0 15px;
-            }
-            
-            .nav-extras {
-                display: none;
             }
             
             .testimonial {
@@ -1832,6 +1845,26 @@
             
             .hero-subtitle {
                 font-size: 1.4rem;
+            }
+            
+            /* Fix hero section on mobile */
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                padding-top: 100px;
+                padding-bottom: 50px;
+            }
+            
+            .hero-content {
+                padding: 0 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-buttons {
+                margin-top: 30px;
             }
         }
 
@@ -1914,6 +1947,19 @@
                 min-width: 100%;
                 margin-bottom: 20px;
             }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .hero-buttons .btn {
+                font-size: 0.9rem;
+                padding: 12px 20px;
+            }
         }
     </style>
 </head>
@@ -1948,15 +1994,17 @@
                     </ul>
                 </nav>
                 
-                <div class="nav-extras">
-                    <div class="nav-contact">
-                        <i class="fas fa-phone-alt"></i>
-                        <div class="contact-info">
-                            <span>Call Us Now</span>
-                            <a href="tel:(682) 233-0306">(682) 233-0306</a>
-                        </div>
+                <div class="nav-contact">
+                    <i class="fas fa-phone-alt"></i>
+                    <div class="contact-info">
+                        <span>Call Us Now</span>
+                        <a href="tel:(682) 233-0306">(682) 233-0306</a>
                     </div>
-                    <div class="nav-cta"><a href="agreement.html" class="btn btn-primary">Send Agreement <i class="fas fa-arrow-right"></i></a></div>
+                </div>
+                
+                <!-- Desktop Send Agreement button - visible only on desktop -->
+                <div class="nav-cta">
+                    <a href="agreement.html" class="btn btn-primary">Send Agreement <i class="fas fa-arrow-right"></i></a>
                 </div>
                 
                 <div class="mobile-toggle" id="mobile-toggle">
@@ -1976,22 +2024,24 @@
 
         <!-- Hero Section -->
         <section class="hero" id="home">
-            <div class="hero-video-container">
-                <video 
-                    class="hero-video"
-                    src="Logistics_video.mp4"
-                    title="Logistics Video"
-                    playsInline
-                    autoplay
-                    muted
-                    loop
-                ></video>
+            <div class="hero-video-container" id="hero-video-container">
+                <div class="youtube-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/FikkQTfbaOs?autoplay=1&mute=1&loop=1&playlist=FikkQTfbaOs&controls=0&showinfo=0&rel=0" 
+                        title="Logistics Video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="hero-overlay"></div>
             </div>
             <div class="container hero-content">
                 <h1 class="hero-title">Welcome to Our Service</h1>
                 <p class="hero-subtitle">Fast, Reliable, and Efficient</p>
                 <div class="hero-buttons">
                     <a href="/contact" class="btn">Contact us to know more</a>
+                    <!-- Mobile Send Agreement button - visible only on mobile -->
+                    <a href="agreement.html" class="btn mobile-send-agreement">Send Agreement <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </section>
