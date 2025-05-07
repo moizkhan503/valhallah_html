@@ -1152,7 +1152,7 @@
                     <div class="terms-section-content">
                         <p>CARRIER must submit proof of delivery with its invoices, and the invoices must reflect that CARRIER delivered the freight to its final destination. a. BROKER agrees to arrange for the transportation of a shipper's freight with CARRIER pursuant to the terms of this Agreement, and to comply with all federal, state, and local laws and regulations pertaining to the brokerage services covered by this Agreement</p>
                         <p>The Parties agree that BROKER'S responsibilities under this Agreement are limited to arranging for the transportation of a shipper's freight with CARRIER, and not actually performing the transportation.</p>
-                        <p>STOP FEE (REFUNDABLE) The Carrier shall make a security deposit of $395 by direct payment, through instant payment methods to the Valhalla Logistic LLC. It is a refundable fee upon the first delivery, along with the payment of the load, for the securement of the load. Once carrier pays $395 to , carrier must get a Receipt for the Deposit Fee by the representative. The security deposit shall be refundable upon the termination of this Agreement, subject to any outstanding obligations or damages incurred by the Carrier. The Carrier may terminate this Agreement with one week's written notice to the Company. Broker is responsible for Detention.</p>
+                        <p>STOP FEE (REFUNDABLE) The Carrier shall make a security deposit of $395 by direct payment, through instant payment methods to the Valhalla Logistic LLC. It is a refundable fee upon the first delivery, along with the payment of the load, for the securement of the load. Once carrier pays $395 to, carrier must get a Receipt for the Deposit Fee by the representative. The security deposit shall be refundable upon the termination of this Agreement, subject to any outstanding obligations or damages incurred by the Carrier. The Carrier may terminate this Agreement with one week's written notice to the Company. Broker is responsible for Detention.</p>
                         <p>Carrier Obligations: To be eligible for Accessorials/Incidentals, Carrier must: Be checked in to shipper OR receiver by the appointment time. Submit all proof of detention, accessorial, incidentals within 24-48 hours of delivery. Detention accrual begins 2 hours after appointment time at shipper/receiver IF: Carrier must notify Broker after 60 minutes of waiting. Provide time stamped BOL within 48 hours of delivery. Detention Rate: $40/hr after 2 hours. Max $200 detention per stop. Layover: $250 Dry Van or $250 Running Reefers. TONU: $200.</p>
                     </div>
                 </div>
@@ -1357,7 +1357,7 @@
                 <div class="pdf-section">
                     <div class="pdf-section-title">SLOT FEE (REFUNDABLE)</div>
                     <div class="pdf-section-content">
-                        <p>The Carrier shall make a security deposit of $395 by direct payment, through instant payment methods to the Valhalla Logistic LLC. It is a refundable fee upon the first delivery, along with the payment of the load, for the securement of the load. Once carrier pays $395 to , carrier must get a Receipt for the Deposit Fee by the representative. The security deposit shall be refundable upon the termination of this Agreement, subject to any outstanding obligations or damages incurred by the Carrier. The Carrier may terminate this Agreement with one week's written notice to the Company. Broker is responsible for Detention.</p>
+                        <p>The Carrier shall make a security deposit of $395 by direct payment, through instant payment methods to the Valhalla Logistic LLC. It is a refundable fee upon the first delivery, along with the payment of the load, for the securement of the load. Once carrier pays $395 to, carrier must get a Receipt for the Deposit Fee by the representative. The security deposit shall be refundable upon the termination of this Agreement, subject to any outstanding obligations or damages incurred by the Carrier. The Carrier may terminate this Agreement with one week's written notice to the Company. Broker is responsible for Detention.</p>
                     </div>
                 </div>
                 
@@ -1556,54 +1556,49 @@
             formErrors: {}
         };
 
-        // Load data from localStorage
-        function loadSavedData() {
-            const savedCarrierInfo = localStorage.getItem("carrierInfo");
-            const savedAgreementInfo = localStorage.getItem("agreementInfo");
+        // Clear form fields after submission
+        function clearFormFields() {
+            // Clear carrier info fields
+            document.getElementById("carrierName").value = "";
+            document.getElementById("carrierUSDOT").value = "";
+            document.getElementById("carrierPhone").value = "";
+            document.getElementById("agreementDate").value = new Date().toISOString().split("T")[0];
+            document.getElementById("bankName").value = "";
+            document.getElementById("accountNumber").value = "";
+            document.getElementById("routingName").value = "";
+            document.getElementById("accountType").value = "";
             
-            if (savedCarrierInfo) {
-                try {
-                    const parsedInfo = JSON.parse(savedCarrierInfo);
-                    if (typeof parsedInfo === "object" && parsedInfo !== null) {
-                        Object.assign(state.carrierInfo, parsedInfo);
-                        
-                        // Populate form fields
-                        document.getElementById("carrierName").value = state.carrierInfo.carrierName || "";
-                        document.getElementById("carrierUSDOT").value = state.carrierInfo.carrierUSDOT || "";
-                        document.getElementById("carrierPhone").value = state.carrierInfo.carrierPhone || "";
-                        document.getElementById("agreementDate").value = state.carrierInfo.agreementDate || "";
-                        document.getElementById("bankName").value = state.carrierInfo.bankName || "";
-                        document.getElementById("accountNumber").value = state.carrierInfo.accountNumber || "";
-                        document.getElementById("routingName").value = state.carrierInfo.routingName || "";
-                        document.getElementById("accountType").value = state.carrierInfo.accountType || "";
-                    }
-                } catch (error) {
-                    console.error("Failed to parse carrierInfo from localStorage", error);
-                    localStorage.removeItem("carrierInfo");
-                }
-            }
+            // Clear agreement info fields
+            document.getElementById("printName").value = "";
+            document.getElementById("title").value = "";
+            document.getElementById("signature").value = "";
+            document.getElementById("date").value = new Date().toISOString().split("T")[0];
+            document.getElementById("email").value = "";
             
-            if (savedAgreementInfo) {
-                try {
-                    const parsedInfo = JSON.parse(savedAgreementInfo);
-                    if (typeof parsedInfo === "object" && parsedInfo !== null) {
-                        // Always force signatureType to be "text"
-                        parsedInfo.signatureType = "text"; 
-                        Object.assign(state.agreementInfo, parsedInfo);
-                        
-                        // Will populate form fields when step 3 is shown
-                    }
-                } catch (error) {
-                    console.error("Failed to parse agreementInfo from localStorage", error);
-                    localStorage.removeItem("agreementInfo");
-                }
-            }
-        }
-
-        // Save data to localStorage
-        function saveData() {
-            localStorage.setItem("carrierInfo", JSON.stringify(state.carrierInfo));
-            localStorage.setItem("agreementInfo", JSON.stringify(state.agreementInfo));
+            // Reset state
+            state.carrierInfo = {
+                carrierName: "",
+                carrierUSDOT: "",
+                carrierPhone: "",
+                agreementDate: new Date().toISOString().split("T")[0],
+                bankName: "",
+                accountNumber: "",
+                routingName: "",
+                accountType: ""
+            };
+            
+            state.agreementInfo = {
+                printName: "",
+                title: "",
+                signature: "",
+                date: new Date().toISOString().split("T")[0],
+                email: "",
+                paymentOption: "Zelle"
+            };
+            
+            // Clear localStorage
+            localStorage.removeItem("carrierInfo");
+            localStorage.removeItem("agreementInfo");
         }
 
         // Form validation
@@ -1682,8 +1677,6 @@
                 }
                 e.target.classList.remove("error");
             }
-            
-            saveData();
         }
 
         // Handle payment option selection
@@ -1707,8 +1700,6 @@
                     errorElement.style.display = "none";
                 }
             }
-            
-            saveData();
         }
 
         // Navigation functions
@@ -1942,17 +1933,14 @@
                     // Store the PDF URL
                     state.pdfUrl = url;
                     
-                    // Store PDF in localStorage for later access
-                    localStorage.setItem('agreementPDF', url);
-                    
-                    // Save PDF data as base64 string for email sending
-                    localStorage.setItem('agreementPDFData', pdf.output('datauristring'));
-                    
                     // Move to next step now that PDF is ready
                     showStep(state.currentStep + 1);
                     
                     // Populate done fields
                     populateDoneFields();
+                    
+                    // Clear form fields after successful PDF generation
+                    clearFormFields();
                     
                 } catch (error) {
                     console.error("Error generating PDF:", error);
@@ -1978,9 +1966,6 @@
 
         // Initialize the page
         document.addEventListener("DOMContentLoaded", function() {
-            // Load saved data
-            loadSavedData();
-            
             // Set up event listeners for form inputs
             document.querySelectorAll("input, select").forEach(el => {
                 el.addEventListener("change", handleInputChange);
