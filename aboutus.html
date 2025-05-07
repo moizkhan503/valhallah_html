@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Valhalla Logistic LLC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #002b49;
+            --secondary: #0056a6;
+            --accent: #0077cc;
+            --light: #f5f9ff;
+            --dark: #001a2c;
+            --text: #333;
+            --text-light: #666;
+            --white: #fff;
+            --shadow: 0 5px 20px rgba(0, 43, 73, 0.1);
+            --transition: all 0.3s ease;
+            --font-primary: 'Montserrat', sans-serif;
+            --card-bg: #fff;
+            --card-border-radius: 15px;
+            --card-padding: 30px;
+            --card-shadow: 0 10px 30px rgba(0, 43, 73, 0.08);
+            --card-shadow-hover: 0 20px 40px rgba(0, 43, 73, 0.15);
+            --card-transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--primary);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--accent);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 43, 73, 0.2);
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 43, 73, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header/Navbar Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 43, 73, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .header.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 25px rgba(0, 43, 73, 0.15);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            position: relative;
+        }
+
+        .logo {
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            padding: 8px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover:before,
+        .nav-link.active:before {
+            width: 100%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent);
+        }
+
+        .nav-cta {
+            margin-left: 15px;
+        }
+
+        .nav-cta .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-extras {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-contact {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-contact i {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 43, 73, 0.2);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-info span {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .contact-info a {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--primary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 100px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('footer-bg.jpg') center center/cover no-repeat;
+            opacity: 0.05;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-logo img {
+            height: 60px;
+            margin-bottom: 25px;
+            border-radius: 0;
+        }
+
+        .footer-about p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .footer-heading {
+            color: var(--white);
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-heading:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: var(--transition);
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links ul li a i {
+            margin-right: 10px;
+            font-size: 14px;
+            color: var(--accent);
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* About Us Page Styles */
+        :root {
+            --about-primary: var(--primary);
+            --about-accent: var(--accent);
+            --about-light: var(--light);
+            --about-dark: var(--dark);
+            --about-white: var(--white);
+            --about-gray: #6c757d;
+            --about-border-radius: var(--card-border-radius);
+            --about-box-shadow: var(--card-shadow);
+            --about-box-shadow-hover: var(--card-shadow-hover);
+            --about-transition: var(--card-transition);
+        }
+
+        .about-page {
+            padding-top: 80px;
+            font-family: var(--font-primary);
+            color: var(--text);
+            background-color: var(--about-light);
+        }
+
+        /* Hero Section */
+        .about-hero {
+            background: linear-gradient(135deg, var(--about-primary), var(--about-dark));
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .about-hero h1 {
+            color: var(--about-white);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* About Section */
+        .about-section, .mission-section {
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 119, 204, 0.05);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .mission-section {
+            background-color: #f0f8ff;
+        }
+
+        .mission-section::before {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 119, 204, 0.05);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-content.reverse {
+            flex-direction: column-reverse;
+        }
+
+        .about-image {
+            flex: 1;
+            max-width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: var(--about-border-radius);
+            box-shadow: var(--about-box-shadow);
+            transition: var(--about-transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+            box-shadow: var(--about-box-shadow-hover);
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .subtitle {
+            color: var(--about-accent);
+            font-size: 1rem;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .title {
+            color: var(--about-dark);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .decorative-line {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--about-primary), var(--about-accent));
+            margin: 1rem 0;
+            border-radius: 2px;
+        }
+
+        .decorative-line.center {
+            margin: 1rem auto;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Values List */
+        .values-list {
+            margin-top: 30px;
+        }
+
+        .value-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            background-color: var(--about-white);
+            border-radius: var(--about-border-radius);
+            padding: 20px;
+            box-shadow: var(--about-box-shadow);
+            transition: var(--about-transition);
+        }
+
+        .value-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--about-box-shadow-hover);
+        }
+
+        .value-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--about-primary), var(--about-accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--about-white);
+            font-size: 1.2rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+            transition: var(--about-transition);
+        }
+
+        .value-item:hover .value-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .value-content h4 {
+            margin: 0 0 5px 0;
+            color: var(--about-dark);
+            font-weight: 600;
+        }
+
+        .value-content p {
+            margin: 0;
+            color: var(--text-light);
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 80px 0;
+            background-color: var(--about-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-section::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 119, 204, 0.05);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .section-header {
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .team-member {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            background-color: var(--about-white);
+            border-radius: var(--about-border-radius);
+            overflow: hidden;
+            box-shadow: var(--about-box-shadow);
+            transition: var(--about-transition);
+            position: relative;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--about-box-shadow-hover);
+        }
+
+        .member-image {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .member-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 43, 73, 0.7) 100%);
+            z-index: 1;
+            opacity: 0;
+            transition: var(--about-transition);
+        }
+
+        .team-member:hover .member-image::before {
+            opacity: 1;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: var(--about-transition);
+        }
+
+        .team-member:hover .member-image img {
+            transform: scale(1.05);
+        }
+
+        .member-info {
+            padding: 20px;
+            position: relative;
+        }
+
+        .member-info::before {
+            content: '\f007';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -25px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--about-primary), var(--about-accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--about-white);
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: var(--about-transition);
+        }
+
+        .team-member:hover .member-info::before {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .member-info h3 {
+            margin: 0 0 5px 0;
+            color: var(--about-dark);
+            font-size: 1.2rem;
+        }
+
+        .position {
+            color: var(--about-accent);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .position::before {
+            content: '\f0b1';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+
+        .bio {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background-color: var(--about-white);
+            color: var(--about-dark);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/src/assets/pattern.png');
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--about-primary);
+        }
+
+        .cta-content p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-buttons .btn {
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--about-transition);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-buttons .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .cta-buttons .btn:hover::before {
+            width: 100%;
+        }
+
+        .cta-buttons .btn-primary {
+            background-color: var(--about-primary);
+            color: var(--about-white);
+            box-shadow: 0 5px 15px rgba(0, 43, 73, 0.1);
+        }
+
+        .cta-buttons .btn-primary:hover {
+            background-color: var(--about-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 43, 73, 0.15);
+        }
+
+        .cta-buttons .btn-secondary {
+            background-color: transparent;
+            color: var(--about-primary);
+            border: 2px solid var(--about-primary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .cta-buttons .btn-secondary:hover {
+            background-color: var(--about-primary);
+            color: var(--about-white);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Styles */
+        @media (min-width: 768px) {
+            .about-content {
+                flex-direction: row;
+            }
+            
+            .about-content.reverse {
+                flex-direction: row-reverse;
+            }
+            
+            .about-image, .about-text {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .navbar {
+                padding: 10px 0;
+            }
+            
+            .logo img {
+                height: 40px;
+            }
+            
+            nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background-color: var(--white);
+                flex-direction: column;
+                padding: 30px;
+                box-shadow: var(--shadow);
+                transition: var(--transition);
+                z-index: 1000;
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .mobile-toggle {
+                display: flex;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .about-section, .mission-section, .team-section, .cta-section {
+                padding: 60px 0;
+            }
+            
+            .decorative-line {
+                margin: 1rem auto;
+            }
+            
+            .about-text {
+                text-align: center;
+            }
+            
+            .value-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .value-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .header {
+                padding: 0 15px;
+            }
+            
+            .nav-extras {
+                display: none;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo img {
+                height: 35px;
+            }
+            
+            .team-member {
+                min-width: 100%;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .cta-buttons .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="/">
+                        <img src="logo.png" alt="Valhalla Logistic LLC" />
+                    </a>
+                </div>
+                
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="services.html" class="nav-link">Services</a></li>
+                        <li><a href="aboutus.html" class="nav-link">About Us</a></li>
+                        <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="nav-extras">
+                    <div class="nav-contact">
+                        <i class="fas fa-phone-alt"></i>
+                        <div class="contact-info">
+                            <span>Call Us Now</span>
+                            <a href="tel:(682) 233-0306">(682) 233-0306</a>
+                        </div>
+                    </div>
+                    <div class="nav-cta"><a href="agreement.html" class="btn btn-primary">Send Agreement <i class="fas fa-arrow-right"></i></a></div>
+                    <div class="mobile-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="about-page">
+        <section class="about-section">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-image">
+                        <img src="about us img1.png" alt="New Generation Brokerage Team" />
+                    </div>
+                    <div class="about-text">
+                        <span class="subtitle">Our Story</span>
+                        <h2 class="title">Who We Are</h2>
+                        <div class="decorative-line"></div>
+                        <p>
+                            New Generation Brokerage was founded with a vision to revolutionize the logistics and transportation industry. 
+                            Our journey began with a simple mission: to provide reliable, efficient, and cost-effective brokerage services 
+                            that connect businesses with the right carriers for their shipping needs.
+                        </p>
+                        <p>
+                            With years of experience in the industry, our team of dedicated professionals understands the challenges 
+                            businesses face when it comes to shipping and logistics. We've built our reputation on trust, reliability, 
+                            and exceptional customer service.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mission-section">
+            <div class="container">
+                <div class="about-content reverse">
+                    <div class="about-text">
+                        <span class="subtitle">Our Purpose</span>
+                        <h2 class="title">Mission & Vision</h2>
+                        <div class="decorative-line"></div>
+                        <p>
+                            <strong>Our Mission:</strong> To provide innovative logistics solutions that optimize supply chains, 
+                            reduce costs, and improve efficiency for businesses of all sizes.
+                        </p>
+                        <p>
+                            <strong>Our Vision:</strong> To become the leading brokerage company known for reliability, transparency, 
+                            and customer satisfaction in the transportation industry.
+                        </p>
+                        <div class="values-list">
+                            <div class="value-item">
+                                <div class="value-icon"><i class="fas fa-star"></i></div>
+                                <div class="value-content">
+                                    <h4>Excellence</h4>
+                                    <p>We strive for excellence in every aspect of our service.</p>
+                                </div>
+                            </div>
+                            <div class="value-item">
+                                <div class="value-icon"><i class="fas fa-handshake"></i></div>
+                                <div class="value-content">
+                                    <h4>Integrity</h4>
+                                    <p>We operate with honesty and transparency in all our dealings.</p>
+                                </div>
+                            </div>
+                            <div class="value-item">
+                                <div class="value-icon"><i class="fas fa-clock"></i></div>
+                                <div class="value-content">
+                                    <h4>Reliability</h4>
+                                    <p>We deliver on our promises, ensuring timely and dependable service.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <img src="ending image 2.jpg" alt="Our Mission" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <span class="subtitle">The People Behind Our Success</span>
+                    <h2 class="title">Our Leadership Team</h2>
+                    <div class="decorative-line center"></div>
+                </div>
+                <div class="team-members">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="ending image 1.jpg" alt="Team Member" />
+                        </div>
+                        <div class="member-info">
+                            <h3>John Doe</h3>
+                            <p class="position">Chief Executive Officer</p>
+                            <p class="bio">With over 15 years of experience in logistics and transportation, John leads our company with vision and expertise.</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="ending image 2.jpg" alt="Team Member" />
+                        </div>
+                        <div class="member-info">
+                            <h3>Jane Smith</h3>
+                            <p class="position">Operations Director</p>
+                            <p class="bio">Jane ensures that our operations run smoothly and efficiently, maintaining our high standards of service.</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="ending image 3.jpg" alt="Team Member" />
+                        </div>
+                        <div class="member-info">
+                            <h3>Michael Johnson</h3>
+                            <p class="position">Customer Relations Manager</p>
+                            <p class="bio">Michael is dedicated to ensuring our clients receive exceptional service and support.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Ready to experience our services?</h2>
+                    <p>Contact us today to learn how we can help optimize your shipping and logistics operations.</p>
+                    <div class="cta-buttons">
+                        <a href="/agreement" class="btn btn-primary"><i class="fas fa-file-contract"></i> Send an Agreement</a>
+                        <a href="/contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="logo.png" alt="Valhalla Logistic LLC" />
+                    </div>
+                    <p>Valhalla Logistic LLC provides reliable and efficient transportation, storage, and distribution services for businesses of all sizes. Our commitment to excellence ensures your goods reach their destination safely and on time.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul>
+                        <li><a href="/"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="/services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="/contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="/about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-heading">Our Services</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Dedicated Loads</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Amazon Loads</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Expedited Shipping</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> International Freight</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-heading">Contact Us</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Logistics Way, Shipping City, SC 12345</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +1 (555) 123-4567</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> info@newgenbrokerage.com</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> Mon-Fri: 8:00AM - 6:00PM</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; <span id="current-year"></span> Valhalla Logistic LLC. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const nav = document.querySelector('nav');
+        
+        mobileToggle.addEventListener('click', function() {
+            nav.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

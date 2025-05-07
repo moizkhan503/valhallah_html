@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Valhalla Logistic LLC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #002b49;
+            --secondary: #0056a6;
+            --accent: #0077cc;
+            --light: #f5f9ff;
+            --dark: #001a2c;
+            --text: #333;
+            --text-light: #666;
+            --white: #fff;
+            --shadow: 0 5px 20px rgba(0, 43, 73, 0.1);
+            --transition: all 0.3s ease;
+            --font-primary: 'Montserrat', sans-serif;
+            --card-bg: #fff;
+            --card-border-radius: 15px;
+            --card-padding: 30px;
+            --card-shadow: 0 10px 30px rgba(0, 43, 73, 0.08);
+            --card-shadow-hover: 0 20px 40px rgba(0, 43, 73, 0.15);
+            --card-transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--primary);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--accent);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 43, 73, 0.2);
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 43, 73, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header/Navbar Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 43, 73, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .header.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 25px rgba(0, 43, 73, 0.15);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            position: relative;
+        }
+
+        .logo {
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            padding: 8px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover:before,
+        .nav-link.active:before {
+            width: 100%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent);
+        }
+
+        .nav-cta {
+            margin-left: 15px;
+        }
+
+        .nav-cta .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-extras {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-contact {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-contact i {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 43, 73, 0.2);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-info span {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .contact-info a {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--primary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 100px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('footer-bg.jpg') center center/cover no-repeat;
+            opacity: 0.05;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-logo img {
+            height: 60px;
+            margin-bottom: 25px;
+            border-radius: 0;
+        }
+
+        .footer-about p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .footer-heading {
+            color: var(--white);
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-heading:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: var(--transition);
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links ul li a i {
+            margin-right: 10px;
+            font-size: 14px;
+            color: var(--accent);
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Services Page Styles */
+        .services-container {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            background-color: #f0f8ff;
+            line-height: 1.6;
+            padding-top: 80px; /* Add padding to account for fixed header */
+        }
+
+        .service-section, .commitment-section, .freight-services-section, .expertise-section {
+            padding: 4rem 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Typography */
+        .subtitle {
+            color: var(--accent);
+            font-size: 1rem;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .title {
+            color: var(--primary);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .decorative-line {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            margin: 1rem 0;
+            border-radius: 2px;
+        }
+
+        .decorative-line.center {
+            margin: 1rem auto;
+        }
+
+        .services-container p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            line-height: 1.7;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Layout components */
+        .service-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-text {
+            flex: 1;
+        }
+
+        .service-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--card-border-radius);
+            box-shadow: var(--card-shadow);
+            transition: var(--card-transition);
+        }
+
+        .service-image:hover img {
+            transform: scale(1.05);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .button-group .btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .button-group .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .button-group .btn:hover:before {
+            width: 100%;
+        }
+
+        .button-group .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 31, 63, 0.2);
+        }
+
+        .button-group .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 31, 63, 0.3);
+        }
+
+        .button-group .btn-secondary {
+            background-color: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 31, 63, 0.1);
+        }
+
+        .button-group .btn-secondary:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 31, 63, 0.15);
+        }
+
+        /* Reasons section */
+        .reasons-section {
+            background-color: #f8f9fa;
+            position: relative;
+            overflow: hidden;
+            padding: 4rem 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .reasons-section:before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 86, 179, 0.05);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .reasons-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            position: relative;
+            z-index: 1;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .reasons-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .reason-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .driver-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--card-border-radius);
+            box-shadow: var(--card-shadow);
+            transition: var(--card-transition);
+        }
+
+        .reason-image:hover .driver-image {
+            transform: scale(1.02);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .image-badge {
+            position: absolute;
+            background-color: #fff;
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: 'Poppins', sans-serif;
+            border-left: 4px solid var(--primary);
+            color: var(--primary);
+            transition: none;
+        }
+
+        .image-badge .badge-icon {
+            font-size: 1.4rem;
+            color: var(--primary);
+            transition: none;
+        }
+
+        .image-badge .badge-text {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--primary);
+            font-family: 'Poppins', sans-serif;
+            transition: none;
+        }
+
+        .image-badge:hover {
+            transform: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            color: var(--primary);
+        }
+
+        .image-badge:hover .badge-icon {
+            color: var(--primary);
+            transform: none;
+        }
+
+        .image-badge:hover .badge-text {
+            color: var(--primary);
+        }
+
+        .truck-badge {
+            top: 15%;
+            right: 5%;
+        }
+
+        .protection-badge {
+            bottom: 15%;
+            left: 5%;
+        }
+
+        .badge-icon {
+            font-size: 1.4rem;
+            color: #e63946;
+            transition: all 0.3s ease;
+        }
+
+        .badge-text {
+            font-weight: 600;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .reasons-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .reason-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            background-color: var(--card-bg);
+            border-radius: var(--card-border-radius);
+            padding: var(--card-padding);
+            box-shadow: var(--card-shadow);
+            transition: var(--card-transition);
+        }
+
+        .reason-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .reason-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-top: 0.2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .reason-item:hover .reason-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .reason-text h3 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .reason-text p {
+            margin-bottom: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Specific section styles */
+        .commitment-section, .expertise-section {
+            background-color: #f8f9fa;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .commitment-section:before, .expertise-section:before {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 86, 179, 0.05);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .service-content.reverse .service-text {
+            order: 2;
+        }
+
+        .service-content.reverse .service-image {
+            order: 1;
+        }
+
+        /* Media Queries */
+        @media (min-width: 768px) {
+            .service-content {
+                flex-direction: row;
+            }
+
+            .service-content.reverse {
+                flex-direction: row-reverse;
+            }
+
+            .reasons-content {
+                flex-direction: row;
+            }
+
+            .reason-image {
+                flex: 1;
+            }
+
+            .reasons-list {
+                flex: 1;
+            }
+
+            .title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .navbar {
+                padding: 10px 0;
+            }
+            
+            .logo img {
+                height: 40px;
+            }
+            
+            nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background-color: var(--white);
+                flex-direction: column;
+                padding: 30px;
+                box-shadow: var(--shadow);
+                transition: var(--transition);
+                z-index: 1000;
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .mobile-toggle {
+                display: flex;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .button-group {
+                justify-content: center;
+            }
+
+            .service-text {
+                text-align: center;
+            }
+
+            .decorative-line {
+                margin: 1rem auto;
+            }
+
+            .image-badge {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .badge-icon {
+                font-size: 1rem;
+            }
+
+            .badge-text {
+                font-size: 0.8rem;
+            }
+            
+            .service-content.reverse .service-text,
+            .service-content.reverse .service-image {
+                order: unset;
+            }
+            
+            .header {
+                padding: 0 15px;
+            }
+            
+            .nav-extras {
+                display: none;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo img {
+                height: 35px;
+            }
+            
+            .reason-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .reason-icon {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="/">
+                        <img src="logo.png" alt="Valhalla Logistic LLC" />
+                    </a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="services.html" class="nav-link">Services</a></li>
+                        <li><a href="aboutus.html" class="nav-link">About Us</a></li>
+                        <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="nav-extras">
+                    <div class="nav-contact">
+                        <i class="fas fa-phone-alt"></i>
+                        <div class="contact-info">
+                            <span>Call Us Now</span>
+                            <a href="tel:(682) 233-0306">(682) 233-0306</a>
+                        </div>
+                    </div>
+                    <div class="nav-cta"><a href="agreement.html" class="btn btn-primary">Send Agreement <i class="fas fa-arrow-right"></i></a></div>
+                    <div class="mobile-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                
+               
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Container -->
+    <div class="services-container">
+        <!-- First Section -->
+        <section class="service-section">
+            <div class="service-content">
+                <div class="service-text">
+                    <span class="subtitle">Our services</span>
+                    <h2 class="title">International services Ocean and air freight!</h2>
+                    <div class="decorative-line"></div>
+                    <p>
+                        Valhalla Logistic LLC understands the importance of all facets of the supply chain. That's why we offer international 
+                        freight services tailored for businesses with global shipping needs. Our expertise ensures your products reach their 
+                        destination on time and in excellent condition. International freight shipping plays a crucial role in the global supply chain, 
+                        facilitating trade across borders. At Valhalla Logistic LLC, we recognize its significance for businesses looking to expand globally.
+                    </p>
+                    <div class="button-group">
+                        <a href="/agreement" class="btn btn-primary"><i class="fas fa-file-contract"></i> Send an Agreement</a>
+                        <a href="/contact" class="btn btn-secondary"><i class="fas fa-envelope"></i> Contact us</a>
+                    </div>
+                </div>
+                <div class="service-image">
+                    <img src="ending image 1.jpg" alt="Container port with colorful shipping containers" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Reasons Section -->
+        <section class="reasons-section">
+            <div class="reasons-header">
+                <span class="subtitle">On the same as thousands of customers</span>
+                <h2 class="title">3 reasons for why choose Valhalla Logistic LLC for international freight?</h2>
+                <div class="decorative-line center"></div>
+            </div>
+
+            <div class="reasons-content">
+                <div class="reason-image">
+                    <img src="person_smiling.png" alt="Truck driver" class="driver-image" />
+                    <div class="image-badge truck-badge">
+                        <div class="badge-icon"><i class="fas fa-truck"></i></div>
+                        <div class="badge-text">Safe Logistics</div>
+                    </div>
+                    <div class="image-badge protection-badge">
+                        <div class="badge-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div class="badge-text">24/7 Protection</div>
+                    </div>
+                </div>
+
+                <div class="reasons-list">
+                    <div class="reason-item">
+                        <div class="reason-icon"><i class="fas fa-star"></i></div>
+                        <div class="reason-text">
+                            <h3>Competitive pricing and flexible solutions</h3>
+                            <p>
+                                Valhalla Logistic LLC offers competitive pricing and flexible solutions to meet the needs of all sizes. 
+                                We work with you to understand your unique requirements and develop customized solutions that meet your needs.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="reason-item">
+                        <div class="reason-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div class="reason-text">
+                            <h3>Advanced security and safety measures for peace of mind</h3>
+                            <p>
+                                Using a knowledgeable and expert customs broker can assist you with tariffs, duties, taxes, and other international shipping requirements. Our team will be able to answer your questions and help you successfully plan your shipment.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Commitment Section -->
+        <section class="commitment-section">
+            <div class="service-content reverse">
+                <div class="service-text">
+                    <span class="subtitle">Our Commitment!</span>
+                    <h2 class="title">Our Commitment to Quality!</h2>
+                    <div class="decorative-line"></div>
+                    <p>
+                        Valhalla Logistic LLC is committed to providing the highest quality international freight services to our clients. 
+                        We understand that your cargo is valuable, and we take every precaution to ensure it arrives at its destination safely and 
+                        securely. Our team of experienced professionals is dedicated to providing exceptional customer service and support throughout 
+                        the shipping process.
+                    </p>
+                    <p>
+                        We work closely with our clients to understand their unique needs and develop customized solutions that meet those needs 
+                        efficiently and cost-effectively. Our commitment to quality extends to every aspect of our business, from our customer 
+                        service to our operational processes. We are constantly striving to improve our services and provide the best possible 
+                        experience for our clients. When you choose Valhalla Logistic LLC, you can trust that your cargo will be handled 
+                        securely. Our commitment to quality and reliability gives you confidence in us to deliver exceptional international freight 
+                        solutions that meet your unique needs.
+                    </p>
+                    <div class="button-group">
+                        <a href="/agreement" class="btn btn-primary"><i class="fas fa-file-contract"></i> Send an Agreement</a>
+                        <a href="/contact" class="btn btn-secondary"><i class="fas fa-phone-alt"></i> Contact us</a>
+                    </div>
+                </div>
+                <div class="service-image">
+                    <img src="ending image 2.jpg" alt="Cargo ship at port" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="freight-services-section">
+            <div class="service-content">
+                <div class="service-image">
+                    <img src="ending image 3.jpg" alt="Shipping containers at port" />
+                </div>
+                <div class="service-text">
+                    <span class="subtitle">Our Services!</span>
+                    <h2 class="title">Our International Freight Services!</h2>
+                    <div class="decorative-line"></div>
+                    <p>
+                        Valhalla Logistic LLC offers a wide range of international freight solutions that cater to businesses of all sizes. Whether 
+                        by air, ocean, or ground, we provide flexible shipping options to ensure your goods reach their destination efficiently and safely. 
+                        Our services, combined with the expertise of our in-house customs broker, guarantee that your freight will arrive on time and in excellent condition.
+                    </p>
+                    <p>
+                        Our dedicated team of international logistics professionals and experienced customs brokers is committed to providing 
+                        personalized service. We collaborate closely with you to understand your specific needs and craft tailored solutions that 
+                        enhance your supply chain and improve operational efficiency. With Valhalla Logistic LLC, you can rest assured that 
+                        your international freight is in the most capable hands.
+                    </p>
+                    <div class="button-group">
+                        <a href="/agreement" class="btn btn-primary"><i class="fas fa-file-contract"></i> Send an Agreement</a>
+                        <a href="/contact" class="btn btn-secondary"><i class="fas fa-globe"></i> Contact us</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expertise Section -->
+        <section class="expertise-section">
+            <div class="service-content reverse">
+                <div class="service-image">
+                    <img src="second right image.png" alt="Container ship at sea during sunset" />
+                </div>
+                <div class="service-text">
+                    <span class="subtitle">Our Transport Expertise!</span>
+                    <h2 class="title">Our International Transport Expertise!</h2>
+                    <div class="decorative-line"></div>
+                    <p>
+                        Valhalla Logistic LLC has decades of experience in international logistics and transportation. Our highly trained 
+                        and experienced team of international freight forwarders, customs broker, and logistics professionals are dedicated to 
+                        delivering exceptional service and support, ensuring that your products reach their destination seamlessly. We use advanced 
+                        technology and tools to optimize routing and scheduling, allowing us to deliver streamlined and cost-effective 
+                        international transportation solutions. Our expertise allows you to be sure that your goods will be transported as effectively and 
+                        efficiently as possible.
+                    </p>
+                    <div class="button-group">
+                        <a href="/agreement" class="btn btn-primary"><i class="fas fa-file-contract"></i> Send an Agreement</a>
+                        <a href="/contact" class="btn btn-secondary"><i class="fas fa-headset"></i> Contact us</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="logo.png" alt="Valhalla Logistic LLC" />
+                    </div>
+                    <p>Valhalla Logistic LLC provides reliable and efficient transportation, storage, and distribution services for businesses of all sizes. Our commitment to excellence ensures your goods reach their destination safely and on time.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul>
+                        <li><a href="/"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="/services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="/contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="/about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-heading">Our Services</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Dedicated Loads</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Amazon Loads</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Expedited Shipping</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> International Freight</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-heading">Contact Us</h4>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Logistics Way, Shipping City, SC 12345</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +1 (555) 123-4567</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> info@newgenbrokerage.com</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> Mon-Fri: 8:00AM - 6:00PM</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; <span id="current-year"></span> Valhalla Logistic LLC. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const nav = document.querySelector('nav');
+        
+        mobileToggle.addEventListener('click', function() {
+            nav.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broker/Carrier Agreement - Valhalla Logistic LLC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #002B49;
+            --primary-light: #0077CC;
+            --primary-dark: #001F35;
+            --accent: #0077CC;
+            --accent-light: #4DA8FF;
+            --accent-dark: #005999;
+            --red: #e63946;
+            --white: #FFFFFF;
+            --light: #F8FAFC;
+            --dark: #0A1929;
+            --text: #333333;
+            --text-light: #666666;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --shadow: 0 10px 30px rgba(0, 43, 73, 0.1);
+            --shadow-hover: 0 20px 40px rgba(0, 43, 73, 0.15);
+            --card-border-radius: 12px;
+            --card-padding: 25px;
+            --card-shadow: 0 10px 30px rgba(0, 43, 73, 0.08);
+            --card-shadow-hover: 0 20px 40px rgba(0, 43, 73, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text);
+        }
+
+        .agreement-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0;
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+        /* Step Indicator Styles */
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+            padding: 0 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .step-indicator::before {
+            content: "";
+            position: absolute;
+            top: 24px;
+            left: 50px;
+            right: 50px;
+            height: 4px;
+            background-color: #e0e0e0;
+            z-index: 0;
+            border-radius: 4px;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            border: 3px solid white;
+        }
+
+        .step.active .step-number {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            transform: scale(1.15);
+            box-shadow: 0 6px 12px rgba(0, 119, 204, 0.25);
+        }
+
+        .step.completed .step-number {
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            color: white;
+        }
+
+        .step.completed .step-number::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 500;
+            transition: var(--transition);
+            text-align: center;
+            max-width: 100px;
+        }
+
+        .step.active .step-text {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Form Container Styles */
+        .form-container {
+            background-color: var(--white);
+            border-radius: var(--card-border-radius);
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+
+        .form-container h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-subtitle {
+            color: var(--text-light);
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-container h3 {
+            color: var(--primary);
+            margin: 20px 0 10px;
+            font-size: 20px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Broker Info Card (Step 1) */
+        .broker-info-card {
+            background-color: var(--light);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .broker-info-header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            padding: 20px;
+            color: white;
+        }
+
+        .broker-info-header h3 {
+            color: white;
+            margin: 0 0 5px;
+            font-size: 20px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .decorative-line {
+            width: 60px;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 3px;
+        }
+
+        .broker-info-content {
+            padding: 20px;
+        }
+
+        .broker-info-row {
+            display: flex;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .broker-info-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .broker-info-label {
+            flex: 0 0 150px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .broker-info-value {
+            flex: 1;
+            color: var(--text);
+        }
+
+        /* Carrier Form Styles */
+        .form-section-title {
+            display: flex;
+            align-items: center;
+            margin: 30px 0 20px;
+        }
+
+        .form-section-title h3 {
+            margin: 0 15px 0 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-section-title .decorative-line {
+            flex: 1;
+            background: linear-gradient(to right, var(--primary), var(--accent-light));
+            height: 2px;
+            opacity: 0.5;
+        }
+
+        .carrier-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-field {
+            margin-bottom: 0;
+        }
+
+        .form-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text);
+            font-size: 15px;
+        }
+
+        .form-field input,
+        .form-field select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--white);
+            box-sizing: border-box;
+        }
+
+        .form-field input:focus,
+        .form-field select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.1);
+            outline: none;
+        }
+
+        .form-field input.error,
+        .form-field select.error {
+            border-color: var(--red);
+            background-color: rgba(230, 57, 70, 0.05);
+        }
+
+        .error-message {
+            color: var(--red);
+            font-size: 13px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .error-message::before {
+            content: '\f071';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 6px;
+            font-size: 12px;
+        }
+
+        .note {
+            color: var(--text);
+            font-size: 14px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 119, 204, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .note::before {
+            content: '\f05a';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 10px;
+            font-size: 16px;
+            color: var(--accent);
+        }
+
+        /* Button Styles */
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .back-button,
+        .continue-button {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .back-button {
+            background-color: var(--light);
+            color: var(--text);
+            border: 1px solid var(--border-color);
+        }
+
+        .back-button:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .continue-button {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 119, 204, 0.2);
+        }
+
+        .continue-button:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--accent-dark));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 119, 204, 0.3);
+        }
+
+        /* Terms Content Styles - Updated for Step 2 */
+        .terms-content {
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-size: 14px;
+            text-align: justify;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .terms-section {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .terms-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .terms-section h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 119, 204, 0.2);
+        }
+
+        .terms-section-content p {
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .terms-section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .agreement-checkbox {
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            background-color: rgba(0, 119, 204, 0.05);
+            border-radius: 8px;
+        }
+
+        .agreement-checkbox label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .agreement-checkbox input[type="checkbox"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            accent-color: var(--accent);
+        }
+
+        /* Payment Method Container - Updated for Step 3 */
+        .payment-method-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .payment-option {
+            flex: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            background-color: var(--light);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .payment-option:hover {
+            border-color: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .payment-option.selected {
+            border-color: var(--accent);
+            background-color: rgba(0, 119, 204, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 119, 204, 0.1);
+        }
+
+        .payment-option-radio {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .payment-option-radio input[type="radio"] {
+            margin-bottom: 10px;
+            transform: scale(1.3);
+            accent-color: var(--accent);
+        }
+
+        .payment-option-radio label {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text);
+        }
+
+        .payment-error {
+            text-align: center;
+            display: block;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+
+        /* Contract Terms Section */
+        .contract-terms {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: rgba(0, 119, 204, 0.03);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .contract-section {
+            margin-bottom: 20px;
+        }
+
+        .contract-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .contract-section h4 {
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .contract-section p {
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: justify;
+            color: var(--text);
+        }
+
+        /* Signature Input styling */
+        .signature-input {
+            font-family: 'Brush Script MT', cursive !important;
+            font-size: 22px !important;
+            text-align: center;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+            height: auto !important;
+            line-height: 1.2 !important;
+        }
+
+        /* Agreement Document Styles - Updated for Step 4 */
+        .agreement-document-container {
+            padding: 20px 0;
+            background-color: #f0f8ff;
+        }
+
+        .agreement-document {
+            background-color: white;
+            border-radius: 0;
+            max-width: 850px;
+            margin: 0 auto 30px;
+            padding: 40px 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            color: #000000;
+        }
+
+        .agreement-document::before {
+            display: none;
+        }
+
+        /* PDF Header Section */
+        .pdf-header {
+            position: relative;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #000;
+            min-height: 60px;
+        }
+
+        .pdf-logo {
+            position: absolute;
+            top: 5px;
+            right: 0;
+            width: 150px;
+            height: auto;
+            text-align: right;
+        }
+
+        .pdf-logo img {
+            max-width: 100%;
+            max-height: 45px;
+            display: block;
+            margin-left: auto;
+        }
+
+        .pdf-title {
+            font-size: 14pt;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .pdf-header-details {
+            display: grid;
+            grid-template-columns: auto minmax(150px, 1fr) auto minmax(150px, 1fr);
+            gap: 8px 20px;
+            font-size: 10pt;
+            align-items: baseline;
+        }
+
+        .pdf-header-details span {
+            padding-bottom: 2px;
+            min-height: 1.2em;
+        }
+
+        .pdf-header-details strong {
+            font-weight: bold;
+            white-space: nowrap;
+            padding-right: 5px;
+        }
+
+        .pdf-header-details .value {
+            border-bottom: 1px solid #000;
+            padding-left: 5px;
+            word-break: break-word;
+        }
+
+        /* PDF Body Sections */
+        .pdf-section {
+            margin-bottom: 20px;
+        }
+
+        .pdf-section-title {
+            font-size: 11pt;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .pdf-section-content p {
+            margin-bottom: 10px;
+            text-align: justify;
+            font-size: 11pt;
+            line-height: 1.5;
+        }
+
+        .pdf-section-content p strong {
+            font-weight: bold;
+        }
+
+        /* PDF Party Details */
+        .pdf-party-intro {
+            margin-bottom: 15px;
+            font-size: 11pt;
+        }
+
+        /* PDF Signature Section */
+        .pdf-signature-section {
+            margin-top: 40px;
+        }
+
+        .pdf-signature-content {
+            display: flex;
+            gap: 30px;
+            margin-top: 15px;
+        }
+
+        .pdf-signature-party {
+            flex: 1;
+        }
+
+        .pdf-signature-party h4 {
+            font-size: 11pt;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .pdf-signature-details {
+            font-size: 10pt;
+        }
+
+        .pdf-signature-item {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: flex-end;
+        }
+
+        .pdf-signature-item strong {
+            flex: 0 0 80px;
+            font-weight: bold;
+            padding-right: 5px;
+        }
+
+        .pdf-signature-value-container {
+            flex: 1;
+            border-bottom: 1px solid #000;
+            padding-left: 5px;
+            min-height: 25px;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .pdf-signature-value-container span {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 14pt;
+            color: var(--primary-dark);
+            line-height: 1;
+        }
+
+        .pdf-signature-value-container img.signature-image {
+            display: inline-block;
+            max-height: 25px;
+            width: auto;
+            vertical-align: bottom;
+            margin-bottom: -2px;
+        }
+
+        .pdf-signature-item span.value-normal {
+            flex: 1;
+            border-bottom: 1px solid #000;
+            padding-left: 5px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 10pt;
+            color: #000;
+            min-height: 20px;
+        }
+
+        /* PDF Certificate Section Styles */
+        .pdf-certificate-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #000;
+        }
+
+        .pdf-certificate-title {
+            font-size: 12pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .pdf-certificate-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 10pt;
+            line-height: 1.4;
+        }
+
+        .pdf-certificate-ids {
+            text-align: left;
+        }
+
+        .pdf-certificate-address {
+            text-align: right;
+        }
+
+        .pdf-certificate-address p {
+            margin: 0;
+        }
+
+        .pdf-certificate-body {
+            font-size: 10pt;
+            text-align: justify;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .pdf-certificate-body p {
+            margin-bottom: 10px;
+        }
+
+        .pdf-certificate-signature {
+            margin-top: 30px;
+            text-align: right;
+            font-size: 10pt;
+        }
+
+        .pdf-certificate-signature p {
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .pdf-certificate-note {
+            margin-top: 30px;
+            font-size: 9pt;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .pdf-certificate-note p {
+            margin-bottom: 5px;
+        }
+
+        /* Done Step Styles */
+        .done-container {
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .done-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .done-header h2 {
+            font-size: 32px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .decorative-line-center {
+            margin: 20px auto;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .done-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .done-info-card {
+            background-color: var(--light);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .done-info-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .done-info-card h3 i {
+            color: var(--accent);
+            font-size: 20px;
+        }
+
+        .done-info-card p {
+            margin-bottom: 10px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .done-info-card p strong {
+            color: var(--primary);
+            margin-right: 5px;
+        }
+
+        .signature-value {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 18px;
+            color: var(--primary-dark);
+        }
+
+        .payment-value {
+            font-weight: 600;
+            color: var(--accent-dark);
+        }
+
+        /* PDF Generation Functionality */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: white;
+        }
+
+        .spinner {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid var(--accent);
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .pdf-preview {
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .download-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .download-button {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 119, 204, 0.3);
+        }
+
+        .download-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 119, 204, 0.4);
+        }
+
+        .download-button i {
+            margin-right: 10px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .carrier-form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pdf-signature-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .pdf-header-details {
+                grid-template-columns: auto 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .step-indicator {
+                padding: 0 10px;
+            }
+            
+            .step-number {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .step-text {
+                font-size: 12px;
+            }
+            
+            .button-container {
+                flex-direction: column;
+            }
+            
+            .back-button, .continue-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="agreement-container" id="agreementContainer">
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-text">Carrier Info</div>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-text">Conditions</div>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-text">Agreement Info</div>
+            </div>
+            <div class="step" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-text">Agreement</div>
+            </div>
+            <div class="step" data-step="5">
+                <div class="step-number">5</div>
+                <div class="step-text">Done</div>
+            </div>
+        </div>
+
+        <!-- Step 1: Carrier Info -->
+        <div class="form-container" id="step1">
+            <h2>Broker/Carrier Agreement</h2>
+            <p class="form-subtitle">Please enter your carrier information below.</p>
+
+            <!-- Broker Info Card -->
+            <div class="broker-info-card">
+                <div class="broker-info-header">
+                    <h3>Broker Information</h3>
+                    <div class="decorative-line"></div>
+                </div>
+                <div class="broker-info-content">
+                    <div class="broker-info-row">
+                        <div class="broker-info-label">Broker Name:</div>
+                        <div class="broker-info-value">VALHALLA LOGISTICS LLC</div>
+                    </div>
+                    <div class="broker-info-row">
+                        <div class="broker-info-label">USDOT Number:</div>
+                        <div class="broker-info-value">USDOT# 4091738</div>
+                    </div>
+                    <div class="broker-info-row">
+                        <div class="broker-info-label">MC Number:</div>
+                        <div class="broker-info-value">MC# 1558919</div>
+                    </div>
+                    <div class="broker-info-row">
+                        <div class="broker-info-label">Phone:</div>
+                        <div class="broker-info-value">(662) 233-0306</div>
+                    </div>
+                    <div class="broker-info-row">
+                        <div class="broker-info-label">Fax:</div>
+                        <div class="broker-info-value">(662) 233-0306</div>
+                    </div>
+                    <div class="broker-info-row">
+                        <div class="broker-info-label">Address:</div>
+                        <div class="broker-info-value">1255 FRANKLIN AVE SUITE 350 GARDEN CITY,NY 11530</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carrier Details -->
+            <div class="form-section-title">
+                <h3>Carrier Details</h3>
+                <div class="decorative-line"></div>
+            </div>
+            <div class="carrier-form-grid">
+                <div class="form-field">
+                    <label for="carrierName">Carrier Name:</label>
+                    <input type="text" id="carrierName" name="carrierName" placeholder="Enter your carrier name" required>
+                    <div class="error-message" id="carrierNameError" style="display: none;"></div>
+                </div>
+                <div class="form-field">
+                    <label for="carrierUSDOT">USDOT/MC Number:</label>
+                    <input type="text" id="carrierUSDOT" name="carrierUSDOT" placeholder="Enter your USDOT or MC number" required>
+                    <div class="error-message" id="carrierUSDOTError" style="display: none;"></div>
+                </div>
+                <div class="form-field">
+                    <label for="carrierPhone">Phone Number:</label>
+                    <input type="tel" id="carrierPhone" name="carrierPhone" placeholder="Enter your phone number" required>
+                    <div class="error-message" id="carrierPhoneError" style="display: none;"></div>
+                </div>
+                <div class="form-field">
+                    <label for="agreementDate">Agreement Date:</label>
+                    <input type="date" id="agreementDate" name="agreementDate" required>
+                    <div class="error-message" id="agreementDateError" style="display: none;"></div>
+                </div>
+            </div>
+
+            <!-- Banking Information -->
+            <div class="form-section-title">
+                <h3>Banking Information</h3>
+                <div class="decorative-line"></div>
+            </div>
+            <div class="carrier-form-grid">
+                <div class="form-field">
+                    <label for="bankName">Bank Name:</label>
+                    <input type="text" id="bankName" name="bankName" placeholder="Enter your bank name" required>
+                    <div class="error-message" id="bankNameError" style="display: none;"></div>
+                </div>
+                <div class="form-field">
+                    <label for="accountNumber">Account Number:</label>
+                    <input type="text" inputmode="numeric" id="accountNumber" name="accountNumber" placeholder="Enter your account number" required>
+                    <div class="error-message" id="accountNumberError" style="display: none;"></div>
+                </div>
+                <div class="form-field">
+                    <label for="routingName">Routing Number:</label>
+                    <input type="text" inputmode="numeric" id="routingName" name="routingName" placeholder="Enter your routing number" required>
+                    <div class="error-message" id="routingNameError" style="display: none;"></div>
+                </div>
+                <div class="form-field">
+                    <label for="accountType">Account Type:</label>
+                    <select id="accountType" name="accountType" required>
+                        <option value="">Select an account type</option>
+                        <option value="Checking">Checking</option>
+                        <option value="Savings">Savings</option>
+                        <option value="Business">Business</option>
+                    </select>
+                    <div class="error-message" id="accountTypeError" style="display: none;"></div>
+                </div>
+            </div>
+
+            <div class="note">All information provided will be kept confidential and secure.</div>
+        </div>
+
+        <!-- Step 2: Conditions -->
+        <div class="form-container" id="step2" style="display: none;">
+            <h2>Terms and Conditions</h2>
+            <p class="form-subtitle">Please review the following terms and conditions carefully.</p>
+            
+            <div class="terms-content">
+                <div class="terms-section">
+                    <h3>BROKER OBLIGATIONS</h3>
+                    <div class="terms-section-content">
+                        <p>Broker shall pay CARRIER for services rendered in an amount equal to the rates and charges agreed to as set forth on any Load Confirmation(s) that is issued and that supplements and amends this Agreement to the extent its terms conflict with those in this Agreement. This Agreement or the Load Confirmation also governs all accessorial services which may be required or performed. CARRIER shall not bill for any accessorial or other charge not approved in this Agreement or in any Load Confirmation(s). Rates may be amended orally but must be confirmed in writing within five working days of the modification in order to remain binding between the parties. As a condition precedent to payment</p>
+                    </div>
+                </div>
+                
+                <div class="terms-section">
+                    <h3>CARRIER OBLIGATIONS</h3>
+                    <div class="terms-section-content">
+                        <p>CARRIER must submit proof of delivery with its invoices, and the invoices must reflect that CARRIER delivered the freight to its final destination. a. BROKER agrees to arrange for the transportation of a shipper's freight with CARRIER pursuant to the terms of this Agreement, and to comply with all federal, state, and local laws and regulations pertaining to the brokerage services covered by this Agreement</p>
+                        <p>The Parties agree that BROKER'S responsibilities under this Agreement are limited to arranging for the transportation of a shipper's freight with CARRIER, and not actually performing the transportation.</p>
+                        <p>STOP FEE (REFUNDABLE) The Carrier shall make a security deposit of $395 by direct payment, through instant payment methods to the Valhalla Logistic LLC. It is a refundable fee upon the first delivery, along with the payment of the load, for the securement of the load. Once carrier pays $395 to , carrier must get a Receipt for the Deposit Fee by the representative. The security deposit shall be refundable upon the termination of this Agreement, subject to any outstanding obligations or damages incurred by the Carrier. The Carrier may terminate this Agreement with one week's written notice to the Company. Broker is responsible for Detention.</p>
+                        <p>Carrier Obligations: To be eligible for Accessorials/Incidentals, Carrier must: Be checked in to shipper OR receiver by the appointment time. Submit all proof of detention, accessorial, incidentals within 24-48 hours of delivery. Detention accrual begins 2 hours after appointment time at shipper/receiver IF: Carrier must notify Broker after 60 minutes of waiting. Provide time stamped BOL within 48 hours of delivery. Detention Rate: $40/hr after 2 hours. Max $200 detention per stop. Layover: $250 Dry Van or $250 Running Reefers. TONU: $200.</p>
+                    </div>
+                </div>
+                
+                <div class="terms-section">
+                    <h3>PAYMENT TERMS</h3>
+                    <div class="terms-section-content">
+                        <p>Signed Copy of Rate confirmation and the company's Invoice to the broker to get paid. We have two options: We charge 2% for Quick pay (same-day deposit). No fees for 24 hours deposit. Factoring.</p>
+                    </div>
+                </div>
+                
+                <div class="terms-section">
+                    <h3>TERM</h3>
+                    <div class="terms-section-content">
+                        <p>The term of this Agreement shall be 90 day's, commencing on the date listed above. If not cancelled by one of The Parties, the Agreement shall automatically renew itself for consecutive one year terms. The Agreement can be terminated at any time by either of The Parties with thirty (30) days written or electronic notice to the other party provided all balances are settled. This Agreement cannot, by law, exempt the Carrier/Broker from any regulatory sanctions in the event that discrepancies are discovered during a physical examination of cargo or the review of documents associated with the carrier's Customs transactions.</p>
+                    </div>
+                </div>
+                
+                <div class="terms-section">
+                    <h3>NOTICES</h3>
+                    <div class="terms-section-content">
+                        <p>If carrier wants to end the contract or want to switch the jobs, carrier must give prior notice of 3 days before ending the contract.</p>
+                    </div>
+                </div>
+                
+                <div class="terms-section">
+                    <h3>ENTIRE CONTRACT</h3>
+                    <div class="terms-section-content">
+                        <p>The provisions contained in this AGREEMENT properly express and memorialize the complete understanding and agreement between the parties, including those contained in all prior agreements, both verbal or written, and there are no other agreements or understandings between the parties, express or implied, except as set forth herein.</p>
+                    </div>
+                </div>
+                
+                <div class="terms-section">
+                    <h3>DISCLAIMER</h3>
+                    <div class="terms-section-content">
+                        <p>Nothing in the Agreement relieves Carrier/Broker of any responsibilities with respect to Canadian and United States law, including Customs Regulations.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="agreement-checkbox">
+                <label><input type="checkbox" checked readonly><span>I have read and agree to the terms and conditions</span></label>
+            </div>
+        </div>
+
+        <!-- Step 3: Agreement Info -->
+        <div class="form-container" id="step3" style="display: none;">
+            <h2>Agreement Information</h2>
+            <p class="form-subtitle">Provide your details to complete the agreement.</p>
+
+            <!-- Signatory Details -->
+            <div class="form-section-title">
+                <h3>Signatory Information</h3>
+                <div class="decorative-line"></div>
+            </div>
+            <div class="carrier-form-grid">
+                <div class="form-field">
+                    <label for="printName">Full Name:</label>
+                    <input type="text" id="printName" name="printName" placeholder="Enter your full name" required>
+                    <div class="error-message" id="printNameError" style="display: none;"></div>
+                </div>
+                <div class="form-field">
+                    <label for="title">Title/Position:</label>
+                    <input type="text" id="title" name="title" placeholder="e.g., Owner, Dispatcher" required>
+                    <div class="error-message" id="titleError" style="display: none;"></div>
+                </div>
+                
+                <div class="form-field">
+                    <label for="signature">Signature:</label>
+                    <input type="text" id="signature" name="signature" placeholder="Type your name to sign" class="signature-input" required>
+                    <div class="error-message" id="signatureError" style="display: none;"></div>
+                </div>
+                
+                <div class="form-field">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                    <div class="error-message" id="dateError" style="display: none;"></div>
+                </div>
+                <div class="form-field" style="grid-column: span 2;">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    <div class="error-message" id="emailError" style="display: none;"></div>
+                </div>
+            </div>
+            
+            <!-- Payment Preference -->
+            <div class="form-section-title" style="margin-top: 30px;">
+                <h3>Payment Method</h3>
+                <div class="decorative-line"></div>
+            </div>
+            <div class="payment-method-container">
+                <div class="payment-option" data-option="Venmo">
+                    <div class="payment-option-radio">
+                        <input type="radio" id="Venmo" name="paymentOption" value="Venmo">
+                        <label for="Venmo">Venmo</label>
+                    </div>
+                </div>
+                <div class="payment-option selected" data-option="Zelle">
+                    <div class="payment-option-radio">
+                        <input type="radio" id="Zelle" name="paymentOption" value="Zelle" checked>
+                        <label for="Zelle">Zelle</label>
+                    </div>
+                </div>
+                <div class="payment-option" data-option="Cashapp">
+                    <div class="payment-option-radio">
+                        <input type="radio" id="Cashapp" name="paymentOption" value="Cashapp">
+                        <label for="Cashapp">Cashapp</label>
+                    </div>
+                </div>
+            </div>
+            <div class="error-message payment-error" id="paymentOptionError" style="display: none;"></div>
+
+            <!-- Contract Terms -->
+            <div class="contract-terms">
+                <div class="contract-section">
+                    <h4>ENTIRE CONTRACT:</h4>
+                    <p>The provisions contained in this AGREEMENT properly express and memorialize the complete understanding and agreement between the parties, including those contained in all prior agreements, both verbal or written, and there are no other agreements or understandings between the parties, express or implied, except as set forth herein.</p>
+                </div>
+                <div class="contract-section">
+                    <h4>NOTICES:</h4>
+                    <p>If carrier wants to end the contract or want to switch the jobs, carrier must give prior notice of 3 days before ending the contract.</p>
+                </div>
+            </div>
+
+            <div class="agreement-checkbox" style="margin-top: 30px;">
+                <label><input type="checkbox" checked readonly><span>I have read and agree to the terms set forth in this agreement.</span></label>
+            </div>
+        </div>
+
+        <!-- Step 4: Agreement Document -->
+        <div class="agreement-document-container" id="step4" style="display: none;">
+            <div class="agreement-document" id="agreementDoc">
+                <!-- PDF Header -->
+                <div class="pdf-header">
+                    <div class="pdf-logo">
+                        <img src="logo.png" alt="Company Logo">
+                    </div>
+                    <div class="pdf-title">Broker/Carrier Agreement</div>
+                    <div class="pdf-header-details">
+                        <!-- Row 1 -->
+                        <strong>Broker Name:</strong><span class="value">VALHALLA LOGISTICS LLC</span>
+                        <strong>Carrier Name:</strong><span class="value" id="pdf-carrierName"></span>
+                        
+                        <!-- Row 2 -->
+                        <strong>MC Number:</strong><span class="value">MC# 1558919</span>
+                        <strong>Carrier USDOT/MC:</strong><span class="value" id="pdf-carrierUSDOT"></span>
+                        
+                        <!-- Row 3 -->
+                        <strong>U.S. DOT Number:</strong><span class="value">USDOT# 4091738</span>
+                        <strong>Carrier Phone number:</strong><span class="value" id="pdf-carrierPhone"></span>
+                        
+                        <!-- Row 4 -->
+                        <strong>Phone:</strong><span class="value">(662) 233-0306</span>
+                        <strong>Agreement Date:</strong><span class="value" id="pdf-agreementDate"></span>
+                        
+                        <!-- Row 5 -->
+                        <strong>Fax:</strong><span class="value">(662) 233-0306</span>
+                        <strong>Bank Name:</strong><span class="value" id="pdf-bankName"></span>
+                        
+                        <!-- Row 6 -->
+                        <strong>Address:</strong><span class="value">1255 FRANKLIN AVE SUITE 350 GARDEN CITY,NY 11530</span>
+                        <strong>Account Number:</strong><span class="value" id="pdf-accountNumber"></span>
+                        
+                        <!-- Row 7 -->
+                        <span></span><span></span>
+                        <strong>Routing Name:</strong><span class="value" id="pdf-routingName"></span>
+                        
+                        <!-- Row 8 -->
+                        <span></span><span></span>
+                        <strong>Account Type:</strong><span class="value" id="pdf-accountType"></span>
+                    </div>
+                </div>
+                
+                <!-- Intro Section -->
+                <div class="pdf-section">
+                    <div class="pdf-section-content">
+                        <p class="pdf-party-intro">This Broker/Carrier Agreement is being entered into by and between: VALHALLA LOGISTICS LLC, hereinafter referred to as "BROKER"), and: <span id="pdf-intro-carrierName"></span> (hereinafter referred to as "CARRIER") as defined below, on this: <span id="pdf-intro-agreementDate"></span></p>
+                        <p>This Agreement between Valhalla Logistic LLC and the Carrier/Broker is intended to enhance the joint efforts of both entities in developing a more secure environment by improving the security for the transportation of conveyances and cargo throughout the commercial process. The Carrier/Broker agrees to develop, implement and stay current, within a framework consistent with the listed recommendations, a verifiable, documented program to enhance security procedures throughout its supply chain process. Where the Carrier/Broker does not exercise control of the production facility, distribution entity, or process in the supply recommendations/guidelines to those entities.</p>
+                        <p>As a condition precedent to payment, all payments must be completed as per agreed terms. In certain cases, failure to process dispatch fees on time may result in delays or limitations in accessing essential shipping documents such as BOL and tracking links.</p>
+                        <p>Specifically, Carriers/Brokers will attempt to meet at a minimum, the following Criteria:</p>
+                    </div>
+                </div>
+                
+                <!-- Broker Obligations -->
+                <div class="pdf-section">
+                    <div class="pdf-section-title">Broker Obligations</div>
+                    <div class="pdf-section-content">
+                        <p>Broker shall pay CARRIER for services rendered in an amount equal to the rates and charges agreed to as set forth on any Load Confirmation(s) that is issued and that supplements and amends this Agreement to the extent its terms conflict with those in this Agreement. This Agreement or the Load Confirmation also governs all accessorial services which may be required or performed. CARRIER shall not bill for any accessorial or other charge not approved in this Agreement or in any Load Confirmation(s). Rates may be amended orally but must be confirmed in writing within five working days of the modification in order to remain binding between the parties. As a condition precedent to payment</p>
+                    </div>
+                </div>
+                
+                <!-- Carrier Obligations -->
+                <div class="pdf-section">
+                    <div class="pdf-section-title">Carrier Obligations</div>
+                    <div class="pdf-section-content">
+                        <p>CARRIER must submit proof of delivery with its invoices, and the invoices must reflect that CARRIER delivered the freight to its final destination. a. BROKER agrees to arrange for the transportation of a shipper's freight with CARRIER pursuant to the terms of this Agreement, and to comply with all federal, state, and local laws and regulations pertaining to the brokerage services covered by this Agreement</p>
+                        <p>The Parties agree that BROKER'S responsibilities under this Agreement are limited to arranging for the transportation of a shipper's freight with CARRIER, and not actually performing the transportation.</p>
+                    </div>
+                </div>
+                
+                <!-- SLOT FEE Section -->
+                <div class="pdf-section">
+                    <div class="pdf-section-title">SLOT FEE (REFUNDABLE)</div>
+                    <div class="pdf-section-content">
+                        <p>The Carrier shall make a security deposit of $395 by direct payment, through instant payment methods to the Valhalla Logistic LLC. It is a refundable fee upon the first delivery, along with the payment of the load, for the securement of the load. Once carrier pays $395 to , carrier must get a Receipt for the Deposit Fee by the representative. The security deposit shall be refundable upon the termination of this Agreement, subject to any outstanding obligations or damages incurred by the Carrier. The Carrier may terminate this Agreement with one week's written notice to the Company. Broker is responsible for Detention.</p>
+                    </div>
+                </div>
+                
+                <!-- Payment Terms -->
+                <div class="pdf-section">
+                    <div class="pdf-section-title">Payment Terms</div>
+                    <div class="pdf-section-content">
+                        <p>Signed Copy of Rate confirmation and the company's Invoice to the broker to get paid. We have two options: We charge 2% for Quick pay (same-day deposit). No fees for 24 hours deposit. Factoring.</p>
+                        <p><strong>Selected Payment Method:</strong> <span id="pdf-paymentOption"></span></p>
+                    </div>
+                </div>
+                
+                <!-- Term -->
+                <div class="pdf-section">
+                    <div class="pdf-section-title">Term</div>
+                    <div class="pdf-section-content">
+                        <p>The term of this Agreement shall be 90 day's, commencing on the date listed above. If not cancelled by one of The Parties, the Agreement shall automatically renew itself for consecutive one year terms. The Agreement can be terminated at any time by either of The Parties with thirty (30) days written or electronic notice to the other party provided all balances are settled. This Agreement cannot, by law, exempt the Carrier/Broker from any regulatory sanctions in the event that discrepancies are discovered during a physical examination of cargo or the review of documents associated with the carrier's Customs transactions.</p>
+                    </div>
+                </div>
+                
+                <!-- Notices -->
+                <div class="pdf-section">
+                    <div class="pdf-section-title">Notices</div>
+                    <div class="pdf-section-content">
+                        <p>If carrier wants to end the contract or want to switch the jobs, carrier must give prior notice of 3 days before ending the contract.</p>
+                    </div>
+                </div>
+                
+                <!-- Entire Contract -->
+                <div class="pdf-section">
+                    <div class="pdf-section-title">Entire Contract</div>
+                    <div class="pdf-section-content">
+                        <p>The provisions contained in this AGREEMENT properly express and memorialize the complete understanding and agreement between the parties, including those contained in all prior agreements, both verbal or written, and there are no other agreements or understandings between the parties, express or implied, except as set forth herein.</p>
+                    </div>
+                </div>
+                
+                <!-- Disclaimer -->
+                <div class="pdf-section">
+                    <div class="pdf-section-title">Disclaimer</div>
+                    <div class="pdf-section-content">
+                        <p>Nothing in the Agreement relieves Carrier/Broker of any responsibilities with respect to Canadian and United States law, including Customs Regulations.</p>
+                    </div>
+                </div>
+
+                <!-- Signature Section -->
+                <div class="pdf-signature-section">
+                    <div class="pdf-section-title">Signatures</div>
+                    <div class="pdf-signature-content">
+                        <div class="pdf-signature-party">
+                            <h4>BROKER: VALHALLA LOGISTICS LLC</h4>
+                            <div class="pdf-signature-details">
+                                <div class="pdf-signature-item">
+                                    <strong>Signature:</strong>
+                                    <div class="pdf-signature-value-container">
+                                        <img src="signatures.png" alt="Broker Signature" class="signature-image">
+                                    </div>
+                                </div>
+                                <div class="pdf-signature-item"><strong>Print Name:</strong> <span class="value-normal">James Martin</span></div>
+                                <div class="pdf-signature-item"><strong>Title:</strong> <span class="value-normal">President</span></div>
+                                <div class="pdf-signature-item"><strong>Date:</strong> <span class="value-normal">May 21, 2022</span></div>
+                            </div>
+                        </div>
+                        <div class="pdf-signature-party">
+                            <h4>CARRIER: <span id="pdf-sig-carrierName"></span></h4>
+                            <div class="pdf-signature-details">
+                                <div class="pdf-signature-item">
+                                    <strong>Signature:</strong>
+                                    <div class="pdf-signature-value-container">
+                                        <span id="pdf-signature"></span>
+                                    </div>
+                                </div>
+                                <div class="pdf-signature-item"><strong>Print Name:</strong> <span class="value-normal" id="pdf-printName"></span></div>
+                                <div class="pdf-signature-item"><strong>Title:</strong> <span class="value-normal" id="pdf-title"></span></div>
+                                <div class="pdf-signature-item"><strong>Date:</strong> <span class="value-normal" id="pdf-date"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Section -->
+                <div class="pdf-certificate-section">
+                    <div class="pdf-certificate-title">CERTIFICATE</div>
+                    <div class="pdf-certificate-details">
+                        <div class="pdf-certificate-ids">
+                            <p>MC: 488943</p>
+                            <p>U.S. DOT No: 3232392</p>
+                        </div>
+                        <div class="pdf-certificate-address">
+                            <p>Valhalla Logistic LLC</p>
+                            <p>2795 E BIDWELL ST#100 147 FOLSAM CA 95630</p>
+                            <p>PORT JERVIS, NY 12771</p>
+                        </div>
+                    </div>
+                    <div class="pdf-certificate-body">
+                        <p>This License is evidence of the applicant's authority to engage in operations, in interstate or foreign as a broker, arranging for transportation of freight (except household goods) by Motor Vehicle.</p>
+                        <p>This authority will be effective as long as the broker maintains insurance coverage for the protection of the public (49 CFR 387) and the designation of agents upon whom process may be served (49 CFR 366). The applicant shall also make reasonably continuous and adequate service to the public. Failure to maintain compliance will constitute sufficient grounds for revocation of this authority.</p>
+                    </div>
+                    <div class="pdf-certificate-signature">
+                        <p>Jeffrey L. Secrist, Chief</p>
+                        <p>Information Technology Operations Division</p>
+                    </div>
+                    <div class="pdf-certificate-note">
+                        <p>NOTE:</p>
+                        <p>Willful and persistent noncompliance with applicable safety fitness regulations as evidenced by a DOT safety fitness rating of unsatisfactory, or by other indicators, could result in proceedings requiring the holder of this certificate or permit to show cause why this authority should not be suspended or revoked.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: Done -->
+        <div class="form-container done-container" id="step5" style="display: none;">
+            <div class="done-header">
+                <h2>Agreement Generated Successfully!</h2>
+                <div class="decorative-line-center"></div>
+                <p class="form-subtitle">Your agreement has been generated and is ready to download.</p>
+            </div>
+            
+            <!-- PDF preview -->
+            <div class="pdf-preview">
+                <iframe id="pdfPreview" title="Agreement PDF" width="100%" height="400px" style="border: 1px solid #ddd; margin-bottom: 20px;"></iframe>
+            </div>
+            
+            <div class="done-content">
+                <div class="done-info-card">
+                    <h3><i class="fas fa-building"></i>Broker Information</h3>
+                    <p><strong>Name:</strong> VALHALLA LOGISTICS LLC</p>
+                    <p><strong>Address:</strong> 1255 FRANKLIN AVE SUITE 350 GARDEN CITY,NY 11530</p>
+                    <p><strong>MC#:</strong> MC# 1558919</p>
+                    <p><strong>USDOT#:</strong> USDOT# 4091738</p>
+                </div>
+                <div class="done-info-card">
+                    <h3><i class="fas fa-truck"></i>Carrier Information</h3>
+                    <p><strong>Name:</strong> <span id="done-carrierName"></span></p>
+                    <p><strong>USDOT/MC#:</strong> <span id="done-carrierUSDOT"></span></p>
+                    <p><strong>Phone:</strong> <span id="done-carrierPhone"></span></p>
+                    <p><strong>Agreement Date:</strong> <span id="done-agreementDate"></span></p>
+                </div>
+                <div class="done-info-card">
+                    <h3><i class="fas fa-file-signature"></i>Agreement Details</h3>
+                    <p><strong>Signed By:</strong> <span id="done-printName"></span> (<span id="done-title"></span>)</p>
+                    <p><strong>Signature:</strong> <span class="signature-value" id="done-signature"></span></p>
+                    <p><strong>Date Signed:</strong> <span id="done-date"></span></p>
+                    <p><strong>Email:</strong> <span id="done-email"></span></p>
+                    <p><strong>Payment Method:</strong> <span class="payment-value" id="done-paymentOption"></span></p>
+                </div>
+            </div>
+            
+            <!-- Download button -->
+            <div class="download-section">
+                <button id="downloadButton" class="download-button">
+                    <i class="fas fa-download"></i> Download Agreement
+                </button>
+                <div class="note">A copy of the signed agreement will be sent to your email address (<span id="done-email-note"></span>). Please keep it for your records.</div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="button-container">
+            <button id="backButton" class="back-button" style="display: none;">Back</button>
+            <button id="continueButton" class="continue-button">Continue</button>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+            <div class="spinner"></div>
+            <p>Generating your agreement...</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize jsPDF
+        window.jsPDF = window.jspdf.jsPDF;
+
+        // State management
+        const state = {
+            currentStep: 1,
+            carrierInfo: {
+                carrierName: "",
+                carrierUSDOT: "",
+                carrierPhone: "",
+                agreementDate: new Date().toISOString().split("T")[0],
+                bankName: "",
+                accountNumber: "",
+                routingName: "",
+                accountType: ""
+            },
+            agreementInfo: {
+                printName: "",
+                title: "",
+                signature: "",
+                date: new Date().toISOString().split("T")[0],
+                email: "",
+                paymentOption: "Zelle"
+            },
+            pdfUrl: "",
+            formErrors: {}
+        };
+
+        // Load data from localStorage
+        function loadSavedData() {
+            const savedCarrierInfo = localStorage.getItem("carrierInfo");
+            const savedAgreementInfo = localStorage.getItem("agreementInfo");
+            
+            if (savedCarrierInfo) {
+                try {
+                    const parsedInfo = JSON.parse(savedCarrierInfo);
+                    if (typeof parsedInfo === "object" && parsedInfo !== null) {
+                        Object.assign(state.carrierInfo, parsedInfo);
+                        
+                        // Populate form fields
+                        document.getElementById("carrierName").value = state.carrierInfo.carrierName || "";
+                        document.getElementById("carrierUSDOT").value = state.carrierInfo.carrierUSDOT || "";
+                        document.getElementById("carrierPhone").value = state.carrierInfo.carrierPhone || "";
+                        document.getElementById("agreementDate").value = state.carrierInfo.agreementDate || "";
+                        document.getElementById("bankName").value = state.carrierInfo.bankName || "";
+                        document.getElementById("accountNumber").value = state.carrierInfo.accountNumber || "";
+                        document.getElementById("routingName").value = state.carrierInfo.routingName || "";
+                        document.getElementById("accountType").value = state.carrierInfo.accountType || "";
+                    }
+                } catch (error) {
+                    console.error("Failed to parse carrierInfo from localStorage", error);
+                    localStorage.removeItem("carrierInfo");
+                }
+            }
+            
+            if (savedAgreementInfo) {
+                try {
+                    const parsedInfo = JSON.parse(savedAgreementInfo);
+                    if (typeof parsedInfo === "object" && parsedInfo !== null) {
+                        // Always force signatureType to be "text"
+                        parsedInfo.signatureType = "text"; 
+                        Object.assign(state.agreementInfo, parsedInfo);
+                        
+                        // Will populate form fields when step 3 is shown
+                    }
+                } catch (error) {
+                    console.error("Failed to parse agreementInfo from localStorage", error);
+                    localStorage.removeItem("agreementInfo");
+                }
+            }
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem("carrierInfo", JSON.stringify(state.carrierInfo));
+            localStorage.setItem("agreementInfo", JSON.stringify(state.agreementInfo));
+        }
+
+        // Form validation
+        function validateForm() {
+            const errors = {};
+            
+            if (state.currentStep === 1) {
+                if (!state.carrierInfo.carrierName.trim()) errors.carrierName = "Carrier name is required";
+                if (!state.carrierInfo.carrierUSDOT.trim()) errors.carrierUSDOT = "USDOT/MC number is required";
+                if (!state.carrierInfo.carrierPhone.trim()) errors.carrierPhone = "Phone number is required";
+                else if (!/^[\d\s\-()+]+$/.test(state.carrierInfo.carrierPhone)) errors.carrierPhone = "Invalid phone number format";
+                if (!state.carrierInfo.agreementDate.trim()) errors.agreementDate = "Agreement date is required";
+                if (!state.carrierInfo.bankName.trim()) errors.bankName = "Bank name is required";
+                if (!state.carrierInfo.accountNumber.trim()) errors.accountNumber = "Account number is required";
+                else if (!/^\d+$/.test(state.carrierInfo.accountNumber)) errors.accountNumber = "Account number must contain only digits";
+                if (!state.carrierInfo.routingName.trim()) errors.routingName = "Routing number is required";
+                else if (!/^\d+$/.test(state.carrierInfo.routingName)) errors.routingName = "Routing number must contain only digits";
+                if (!state.carrierInfo.accountType.trim()) errors.accountType = "Account type is required";
+            } else if (state.currentStep === 3) {
+                if (!state.agreementInfo.printName.trim()) errors.printName = "Print name is required";
+                if (!state.agreementInfo.title.trim()) errors.title = "Title is required";
+                if (!state.agreementInfo.signature.trim()) errors.signature = "Signature is required";
+                if (!state.agreementInfo.date.trim()) errors.date = "Date is required";
+                if (!state.agreementInfo.email.trim()) errors.email = "Email is required";
+                else if (!/^\S+@\S+\.\S+$/.test(state.agreementInfo.email)) errors.email = "Please enter a valid email address";
+                if (!state.agreementInfo.paymentOption.trim()) errors.paymentOption = "Payment method is required";
+            }
+            
+            // Display errors
+            state.formErrors = errors;
+            displayFormErrors();
+            
+            return Object.keys(errors).length === 0;
+        }
+
+        function displayFormErrors() {
+            // Clear all error messages first
+            const errorElements = document.querySelectorAll(".error-message");
+            errorElements.forEach(el => {
+                el.style.display = "none";
+                el.textContent = "";
+            });
+            
+            // Display new error messages
+            for (const field in state.formErrors) {
+                const errorElement = document.getElementById(`${field}Error`);
+                if (errorElement) {
+                    errorElement.textContent = state.formErrors[field];
+                    errorElement.style.display = "block";
+                    
+                    // Add error class to input
+                    const inputElement = document.getElementById(field);
+                    if (inputElement) {
+                        inputElement.classList.add("error");
+                    }
+                }
+            }
+        }
+
+        // Handle input changes
+        function handleInputChange(e) {
+            const { name, value } = e.target;
+            
+            if (state.currentStep === 1) {
+                state.carrierInfo[name] = value;
+            } else if (state.currentStep === 3) {
+                state.agreementInfo[name] = value;
+            }
+            
+            // Clear error for this field if it exists
+            if (state.formErrors[name]) {
+                delete state.formErrors[name];
+                const errorElement = document.getElementById(`${name}Error`);
+                if (errorElement) {
+                    errorElement.style.display = "none";
+                }
+                e.target.classList.remove("error");
+            }
+            
+            saveData();
+        }
+
+        // Handle payment option selection
+        function handlePaymentOptionChange(option) {
+            state.agreementInfo.paymentOption = option;
+            
+            // Update UI
+            document.querySelectorAll(".payment-option").forEach(el => {
+                el.classList.remove("selected");
+            });
+            document.querySelector(`.payment-option[data-option="${option}"]`).classList.add("selected");
+            
+            // Update radio button
+            document.getElementById(option).checked = true;
+            
+            // Clear error if it exists
+            if (state.formErrors.paymentOption) {
+                delete state.formErrors.paymentOption;
+                const errorElement = document.getElementById("paymentOptionError");
+                if (errorElement) {
+                    errorElement.style.display = "none";
+                }
+            }
+            
+            saveData();
+        }
+
+        // Navigation functions
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll("[id^='step']").forEach(el => {
+                el.style.display = "none";
+            });
+            
+            // Show current step
+            document.getElementById(`step${step}`).style.display = "block";
+            
+            // Update step indicator
+            document.querySelectorAll(".step").forEach(el => {
+                el.classList.remove("active");
+                el.classList.remove("completed");
+                
+                const stepNumber = parseInt(el.getAttribute("data-step"));
+                if (stepNumber === step) {
+                    el.classList.add("active");
+                } else if (stepNumber < step) {
+                    el.classList.add("completed");
+                }
+            });
+            
+            // Show/hide back button
+            document.getElementById("backButton").style.display = step > 1 ? "block" : "none";
+            
+            // Update continue button text
+            const continueButton = document.getElementById("continueButton");
+            if (step === 4) {
+                continueButton.textContent = "Generate & Submit Agreement";
+            } else {
+                continueButton.textContent = "Continue";
+            }
+            
+            // Hide continue button on step 5
+            continueButton.style.display = step < 5 ? "block" : "none";
+            
+            // Populate form fields for step 3
+            if (step === 3) {
+                document.getElementById("printName").value = state.agreementInfo.printName || "";
+                document.getElementById("title").value = state.agreementInfo.title || "";
+                document.getElementById("signature").value = state.agreementInfo.signature || "";
+                document.getElementById("date").value = state.agreementInfo.date || "";
+                document.getElementById("email").value = state.agreementInfo.email || "";
+                
+                // Set payment option
+                handlePaymentOptionChange(state.agreementInfo.paymentOption);
+            }
+            
+            // Populate PDF fields for step 4
+            if (step === 4) {
+                populatePdfFields();
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Update current step
+            state.currentStep = step;
+        }
+
+        function handleNext() {
+            if (validateForm()) {
+                // If current step is 4 (Agreement step), generate PDF before proceeding
+                if (state.currentStep === 4) {
+                    generatePDF();
+                } else {
+                    // For other steps, just move to next step
+                    showStep(state.currentStep + 1);
+                }
+            }
+        }
+
+        function handleBack() {
+            showStep(state.currentStep - 1);
+        }
+
+        // Populate PDF fields
+        function populatePdfFields() {
+            // Carrier info
+            document.getElementById("pdf-carrierName").textContent = state.carrierInfo.carrierName || " ";
+            document.getElementById("pdf-carrierUSDOT").textContent = state.carrierInfo.carrierUSDOT || " ";
+            document.getElementById("pdf-carrierPhone").textContent = state.carrierInfo.carrierPhone || " ";
+            document.getElementById("pdf-agreementDate").textContent = state.carrierInfo.agreementDate || " ";
+            document.getElementById("pdf-bankName").textContent = state.carrierInfo.bankName || " ";
+            document.getElementById("pdf-accountNumber").textContent = state.carrierInfo.accountNumber || " ";
+            document.getElementById("pdf-routingName").textContent = state.carrierInfo.routingName || " ";
+            document.getElementById("pdf-accountType").textContent = state.carrierInfo.accountType || " ";
+            
+            // Intro section
+            document.getElementById("pdf-intro-carrierName").textContent = state.carrierInfo.carrierName || " ";
+            document.getElementById("pdf-intro-agreementDate").textContent = state.carrierInfo.agreementDate || " ";
+            
+            // Payment option
+            document.getElementById("pdf-paymentOption").textContent = state.agreementInfo.paymentOption || "Zelle";
+            
+            // Signature section
+            document.getElementById("pdf-sig-carrierName").textContent = state.carrierInfo.carrierName || " ";
+            document.getElementById("pdf-signature").textContent = state.agreementInfo.signature || " ";
+            document.getElementById("pdf-printName").textContent = state.agreementInfo.printName || " ";
+            document.getElementById("pdf-title").textContent = state.agreementInfo.title || " ";
+            document.getElementById("pdf-date").textContent = state.agreementInfo.date || " ";
+        }
+
+        // Populate Done step fields
+        function populateDoneFields() {
+            // Carrier info
+            document.getElementById("done-carrierName").textContent = state.carrierInfo.carrierName || "";
+            document.getElementById("done-carrierUSDOT").textContent = state.carrierInfo.carrierUSDOT || "";
+            document.getElementById("done-carrierPhone").textContent = state.carrierInfo.carrierPhone || "";
+            document.getElementById("done-agreementDate").textContent = state.carrierInfo.agreementDate || "";
+            
+            // Agreement info
+            document.getElementById("done-printName").textContent = state.agreementInfo.printName || "";
+            document.getElementById("done-title").textContent = state.agreementInfo.title || "";
+            document.getElementById("done-signature").textContent = state.agreementInfo.signature || "";
+            document.getElementById("done-date").textContent = state.agreementInfo.date || "";
+            document.getElementById("done-email").textContent = state.agreementInfo.email || "";
+            document.getElementById("done-email-note").textContent = state.agreementInfo.email || "";
+            document.getElementById("done-paymentOption").textContent = state.agreementInfo.paymentOption || "Zelle";
+            
+            // Set PDF preview
+            if (state.pdfUrl) {
+                document.getElementById("pdfPreview").src = state.pdfUrl;
+            }
+        }
+
+        // Generate PDF
+        function generatePDF() {
+            // Show loading overlay
+            document.getElementById("loadingOverlay").style.display = "flex";
+            
+            setTimeout(async () => {
+                try {
+                    const content = document.getElementById("agreementDoc");
+                    if (!content) {
+                        throw new Error("Could not find agreement document element");
+                    }
+
+                    // Force desktop width before snapshot for better consistency
+                    const originalWidth = content.style.width;
+                    content.style.width = "1040px";
+
+                    // Increase scale for higher resolution
+                    const fullCanvas = await html2canvas(content, { 
+                        scale: 1.5,
+                        logging: false,
+                        useCORS: true,
+                        allowTaint: true
+                    });
+                    
+                    // PDF setup
+                    const pdf = new jsPDF("p", "mm", "a4");
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = pdf.internal.pageSize.getHeight();
+
+                    // Define margins (in mm)
+                    const margin = 10;
+                    const usableWidth = pdfWidth - margin * 2;
+                    const usableHeight = pdfHeight - margin * 2;
+
+                    // Ratio between canvas px and PDF mm
+                    const pxPerMm = fullCanvas.width / usableWidth;
+
+                    // The number of vertical px that fit on one PDF page (inside the margins)
+                    const pageHeightPx = usableHeight * pxPerMm;
+
+                    let pageY = 0; // Tracks how far down (in px) we've processed the large canvas
+                    let pageCount = 0;
+                    
+                    while (pageY < fullCanvas.height) {
+                        if (pageCount > 0) {
+                            pdf.addPage();
+                        }
+                        
+                        // sliceCanvas will hold a "page" of content from the full canvas
+                        const sliceCanvas = document.createElement("canvas");
+                        const sliceCtx = sliceCanvas.getContext("2d");
+
+                        // The remaining height in the original canvas
+                        const remainingHeightPx = fullCanvas.height - pageY;
+                        // The slice to draw on this page
+                        const sliceHeightPx = Math.min(pageHeightPx, remainingHeightPx);
+
+                        // Match slice canvas dimensions to the portion we need
+                        sliceCanvas.width = fullCanvas.width;
+                        sliceCanvas.height = sliceHeightPx;
+
+                        // Copy just the region for this PDF page from fullCanvas
+                        sliceCtx.drawImage(
+                            fullCanvas,
+                            0,         // source X in fullCanvas
+                            pageY,     // source Y in fullCanvas
+                            fullCanvas.width,
+                            sliceHeightPx,
+                            0,         // destination X in sliceCanvas
+                            0,         // destination Y in sliceCanvas
+                            fullCanvas.width,
+                            sliceHeightPx
+                        );
+
+                        // Convert sliceCanvas to JPEG
+                        const pageData = sliceCanvas.toDataURL("image/jpeg", 1);
+
+                        // The displayed height in PDF units (mm) for this slice
+                        const sliceHeightMm = sliceHeightPx / pxPerMm;
+
+                        // Render the slice into the PDF
+                        pdf.addImage(
+                            pageData,
+                            "JPEG",
+                            margin, // left margin
+                            margin, // top margin
+                            usableWidth,
+                            sliceHeightMm
+                        );
+
+                        pageY += sliceHeightPx; // Move down to next page slice
+                        pageCount++;
+                    }
+
+                    // Restore original width after PDF generation
+                    content.style.width = originalWidth;
+                    
+                    // Save the PDF
+                    const pdfOutput = pdf.output('blob');
+                    const url = URL.createObjectURL(pdfOutput);
+                    
+                    // Store the PDF URL
+                    state.pdfUrl = url;
+                    
+                    // Store PDF in localStorage for later access
+                    localStorage.setItem('agreementPDF', url);
+                    
+                    // Save PDF data as base64 string for email sending
+                    localStorage.setItem('agreementPDFData', pdf.output('datauristring'));
+                    
+                    // Move to next step now that PDF is ready
+                    showStep(state.currentStep + 1);
+                    
+                    // Populate done fields
+                    populateDoneFields();
+                    
+                } catch (error) {
+                    console.error("Error generating PDF:", error);
+                    alert("Failed to generate PDF. Please try again.");
+                } finally {
+                    // Hide loading overlay
+                    document.getElementById("loadingOverlay").style.display = "none";
+                }
+            }, 500); // Small delay to ensure loading overlay is shown
+        }
+
+        // Download PDF
+        function downloadPdf() {
+            if (state.pdfUrl) {
+                const link = document.createElement('a');
+                link.href = state.pdfUrl;
+                link.download = 'Broker_Carrier_Agreement.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        // Initialize the page
+        document.addEventListener("DOMContentLoaded", function() {
+            // Load saved data
+            loadSavedData();
+            
+            // Set up event listeners for form inputs
+            document.querySelectorAll("input, select").forEach(el => {
+                el.addEventListener("change", handleInputChange);
+            });
+            
+            // Set up event listeners for payment options
+            document.querySelectorAll(".payment-option").forEach(el => {
+                el.addEventListener("click", function() {
+                    const option = this.getAttribute("data-option");
+                    handlePaymentOptionChange(option);
+                });
+            });
+            
+            // Set up navigation buttons
+            document.getElementById("continueButton").addEventListener("click", handleNext);
+            document.getElementById("backButton").addEventListener("click", handleBack);
+            
+            // Set up download button
+            document.getElementById("downloadButton").addEventListener("click", downloadPdf);
+            
+            // Show first step
+            showStep(1);
+        });
+    </script>
+</body>
+</html>
