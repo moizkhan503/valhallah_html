@@ -168,6 +168,72 @@
             margin: 0 auto;
         }
 
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: var(--dark);
+        }
+
+        .loading-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid black;
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 1s infinite linear;
+            margin: 0 auto 20px;
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-top: 20px;
+        }
+
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .loading-progress-bar {
+            height: 100%;
+            width: 0;
+            background: var(--white);
+            border-radius: 4px;
+            transition: width 4s ease;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* Header/Navbar Styles */
         .header {
             position: fixed;
@@ -319,6 +385,18 @@
             background-color: var(--primary);
             border-radius: 3px;
             transition: all 0.3s ease;
+        }
+
+        .mobile-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
         }
 
         /* Hero Section with Video Background */
@@ -1747,6 +1825,14 @@
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
         }
 
         @media (max-width: 576px) {
@@ -1802,10 +1888,47 @@
             .payment-methods {
                 justify-content: center;
             }
+            
+            .tracking-form {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+            
+            .tracking-form input {
+                width: 100%;
+                border-radius: 15px 15px 0 0;
+                text-align: center;
+            }
+            
+            .tracking-form button {
+                width: 100%;
+                padding: 15px;
+                border-radius: 0 0 15px 15px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-card {
+                min-width: 100%;
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2 class="loading-text">Valhalla Logistic LLC</h2>
+            <div class="loading-progress">
+                <div class="loading-progress-bar" id="loading-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -1816,9 +1939,9 @@
                     </a>
                 </div>
                 
-                <nav>
+                <nav id="main-nav">
                     <ul>
-                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="index.html" class="nav-link active">Home</a></li>
                         <li><a href="services.html" class="nav-link">Services</a></li>
                         <li><a href="aboutus.html" class="nav-link">About Us</a></li>
                         <li><a href="contact.html" class="nav-link">Contact Us</a></li>
@@ -1834,11 +1957,12 @@
                         </div>
                     </div>
                     <div class="nav-cta"><a href="agreement.html" class="btn btn-primary">Send Agreement <i class="fas fa-arrow-right"></i></a></div>
-                    <div class="mobile-toggle">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+                </div>
+                
+                <div class="mobile-toggle" id="mobile-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </div>
         </div>
@@ -1846,7 +1970,7 @@
 
     <div class="landing-page">
         <!-- Back to Top Button -->
-        <div class="back-to-top">
+        <div class="back-to-top" id="back-to-top">
             <i class="fas fa-arrow-up"></i>
         </div>
 
@@ -1857,7 +1981,6 @@
                     class="hero-video"
                     src="Logistics_video.mp4"
                     title="Logistics Video"
-                    controls
                     playsInline
                     autoplay
                     muted
@@ -2028,25 +2151,25 @@
                                 <div class="payment-icon">
                                     <i class="fas fa-credit-card"></i>
                                 </div>
-                                <span>Cash App</span>
+                                <span><br></span>
                             </div>
                             <div class="payment-method">
                                 <div class="payment-icon">
                                     <i class="fas fa-university"></i>
                                 </div>
-                                <span>Zelle</span>
+                                <span><br></span>
                             </div>
                             <div class="payment-method">
                                 <div class="payment-icon">
                                     <i class="fab fa-paypal"></i>
                                 </div>
-                                <span>Venmo</span>
+                                <span><br></span>
                             </div>
                             <div class="payment-method">
                                 <div class="payment-icon">
                                     <i class="fas fa-file-invoice-dollar"></i>
                                 </div>
-                                <span>Invoicing</span>
+                                <span><br></span>
                             </div>
                         </div>
                     </div>
@@ -2408,6 +2531,26 @@
     </div>
 
     <script>
+        // Loading Screen Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            const progressBar = document.getElementById('loading-progress-bar');
+            const body = document.body;
+            
+            // Prevent scrolling during loading
+            body.style.overflow = 'hidden';
+            
+            // Animate progress bar
+            progressBar.style.width = '100%';
+            
+            // Hide loading screen after 4 seconds
+            setTimeout(function() {
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.visibility = 'hidden';
+                body.style.overflow = 'auto'; // Enable scrolling
+            }, 4000);
+        });
+
         // Set current year in footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
@@ -2430,16 +2573,25 @@
         });
 
         // Mobile menu toggle
-        const mobileToggle = document.querySelector('.mobile-toggle');
-        const nav = document.querySelector('nav');
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const nav = document.getElementById('main-nav');
         
         mobileToggle.addEventListener('click', function() {
             nav.classList.toggle('active');
             this.classList.toggle('active');
         });
 
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                nav.classList.remove('active');
+                mobileToggle.classList.remove('active');
+            });
+        });
+
         // Back to top functionality
-        document.querySelector('.back-to-top').addEventListener('click', function() {
+        document.getElementById('back-to-top').addEventListener('click', function() {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
